@@ -14,13 +14,7 @@ import {
 const HitComponent = ({ hit }: { hit: any }) => (
   <div>
     {hit.screens.length > 0 && (
-      <img
-        src={hit.screens[0]}
-        alt={hit.name}
-        align='left'
-        width={100}
-        height={50}
-      />
+      <img src={hit.screens[0]} alt={hit.name} width={100} height={50} />
     )}
     <div className='hit-name'>
       <Highlight attribute='name' hit={hit} />
