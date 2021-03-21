@@ -10,9 +10,12 @@
     "prettier": "prettier --write './**/*.{ts,tsx,js,jsx,css,scss,json,yaml,md,html}'"
   },
   "dependencies": {
+    "@material-ui/core": "^4.11.3",
+    "@material-ui/icons": "^4.11.2",
     "instantsearch.css": "^7.4.5",
     "next": "latest",
     "react": "^17.0.1",
+    "react-cookie": "^4.0.3",
     "react-dom": "^17.0.1",
     "react-instantsearch-dom": "^6.10.3",
     "typesense-instantsearch-adapter": "^1.0.0"

@@ -4,7 +4,14 @@
 //
 // import { User } from 'path/to/interfaces';
 
-export type User = {
-  id: number
+type AuraType = 'WEAKAURA' | 'MDT' | 'ELVUI' | 'PLATER' | 'VUHDO'
+
+export interface Aura {
+  slug: string
   name: string
+  type: AuraType
+  categories: string[]
+  viewCount: number
+  url: string
+  screens: string[]
 }

@@ -1,6 +1,5 @@
 import TypesenseInstantSearchAdapter from 'typesense-instantsearch-adapter'
 
-console.log(process.env)
 const typesenseAdapter = new TypesenseInstantSearchAdapter({
   server: {
     apiKey: 'Wad4LgiHsDn2hv6pkiq1mlLAhTozaDgy',
