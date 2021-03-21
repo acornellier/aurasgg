@@ -6,7 +6,7 @@
 
 type AuraType = 'WEAKAURA' | 'MDT' | 'ELVUI' | 'PLATER' | 'VUHDO'
 
-export interface Aura {
+interface AuraCommon {
   slug: string
   name: string
   type: AuraType
@@ -14,4 +14,8 @@ export interface Aura {
   viewCount: number
   url: string
   screens: string[]
+}
+
+export interface SearchAura extends AuraCommon {
+  id: string
 }

@@ -1,30 +1,32 @@
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import {
   AppBar,
+  Button,
   fade,
+  Hidden,
   IconButton,
   InputBase,
-  Theme,
   Toolbar,
-  Typography,
 } from '@material-ui/core'
 import React from 'react'
-import { createStyles, makeStyles } from '@material-ui/core/styles'
-import { Brightness7, Search } from '@material-ui/icons'
+import {
+  Brightness7 as Brightness7Icon,
+  Search as SearchIcon,
+  Widgets as WidgetsIcon,
+} from '@material-ui/icons'
+import { connectSearchBox, SearchBoxProvided } from 'react-instantsearch-core'
+import NextLink from 'next/link'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    root: {
-      flexGrow: 1,
+    appBar: {
+      zIndex: theme.zIndex.drawer + 1,
     },
-    menuButton: {
-      marginRight: theme.spacing(2),
+    toolbar: {
+      justifyContent: 'space-between',
     },
-    title: {
-      flexGrow: 1,
-      display: 'none',
-      [theme.breakpoints.up('sm')]: {
-        display: 'block',
-      },
+    button: {
+      margin: theme.spacing(1),
     },
     search: {
       position: 'relative',
@@ -68,24 +70,36 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 )
 
-interface Props {
+interface Props extends SearchBoxProvided {
   toggleTheme: () => void
 }
 
-const Header = ({ toggleTheme }: Props) => {
+const Header = ({ toggleTheme, refine, currentRefinement }: Props) => {
   const classes = useStyles()
 
   return (
-    <AppBar position='sticky'>
-      <Toolbar>
-        <Typography className={classes.title} variant='h6' noWrap>
-          Material-UI
-        </Typography>
+    <AppBar position='fixed' className={classes.appBar}>
+      <Toolbar className={classes.toolbar}>
+        <NextLink href='/'>
+          <Button
+            className={classes.button}
+            startIcon={<WidgetsIcon />}
+            color='inherit'
+            size='large'
+          >
+            <Hidden xsDown>Wowtail</Hidden>
+          </Button>
+        </NextLink>
         <div className={classes.search}>
           <div className={classes.searchIcon}>
-            <Search />
+            <SearchIcon />
           </div>
           <InputBase
+            value={currentRefinement}
+            onChange={(event) => {
+              refine(event.target.value)
+              window.scrollTo({ top: 0 })
+            }}
             placeholder='Search…'
             classes={{
               root: classes.inputRoot,
@@ -95,11 +109,11 @@ const Header = ({ toggleTheme }: Props) => {
           />
         </div>
         <IconButton onClick={toggleTheme}>
-          <Brightness7 />
+          <Brightness7Icon />
         </IconButton>
       </Toolbar>
     </AppBar>
   )
 }
 
-export default Header
+export default connectSearchBox(Header)

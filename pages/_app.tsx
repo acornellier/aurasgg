@@ -2,16 +2,37 @@ import 'pages/app.css'
 import 'instantsearch.css/themes/reset.css'
 
 import { AppProps } from 'next/app'
-import { CookiesProvider, useCookies } from 'react-cookie'
+import { useCookies } from 'react-cookie'
 import Head from 'next/head'
 import React, { useEffect, useState } from 'react'
-import { createMuiTheme, CssBaseline, ThemeOptions } from '@material-ui/core'
-import { ThemeProvider } from '@material-ui/styles'
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
+import {
+  Container,
+  createMuiTheme,
+  CssBaseline,
+  ThemeOptions,
+  ThemeProvider,
+  Toolbar,
+} from '@material-ui/core'
 import Header from 'components/Header'
+import { InstantSearch } from 'react-instantsearch-dom'
+import searchClient from 'utils/searchClient'
 
 const THEME_COOKIE = 'theme'
 
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    main: {
+      display: 'flex',
+      paddingTop: theme.spacing(2),
+      paddingBottom: theme.spacing(2),
+    },
+  }),
+)
+
 const App = ({ Component, pageProps }: AppProps) => {
+  const classes = useStyles()
+
   const [cookies, setCookie] = useCookies([THEME_COOKIE])
 
   const [theme, setTheme] = useState<ThemeOptions>({
@@ -42,9 +63,14 @@ const App = ({ Component, pageProps }: AppProps) => {
         />
       </Head>
       <ThemeProvider theme={muiTheme}>
-        <CssBaseline />
-        <Header toggleTheme={toggleTheme} />
-        <Component {...pageProps} />
+        <InstantSearch indexName='auras' searchClient={searchClient}>
+          <CssBaseline />
+          <Header toggleTheme={toggleTheme} />
+          <Toolbar />
+          <Container className={classes.main} component='main'>
+            <Component {...pageProps} />
+          </Container>
+        </InstantSearch>
       </ThemeProvider>
     </>
   )
