@@ -1,4 +1,4 @@
-import 'pages/app.css'
+import 'pages/app.sass'
 import 'instantsearch.css/themes/reset.css'
 
 import { AppProps } from 'next/app'

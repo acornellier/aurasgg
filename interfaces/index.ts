@@ -12,10 +12,18 @@ interface AuraCommon {
   type: AuraType
   categories: string[]
   viewCount: number
-  url: string
-  screens: string[]
+  wagoUrl: string
+  description: {
+    type: 'bbcode' | 'markdown'
+    text: string
+  }
 }
 
 export interface SearchAura extends AuraCommon {
   id: string
+  screens: string[]
+}
+
+export interface Aura extends AuraCommon {
+  screens: Array<{ src: string }>
 }

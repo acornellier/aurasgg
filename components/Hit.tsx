@@ -1,14 +1,10 @@
 import { SearchAura } from 'interfaces'
 import {
-  Button,
   Card,
   CardActionArea,
-  CardActions,
   CardContent,
   CardMedia,
   Chip,
-  Grid,
-  Paper,
   Typography,
 } from '@material-ui/core'
 import NextLink from 'next/link'

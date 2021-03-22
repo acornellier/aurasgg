@@ -7,11 +7,13 @@
     "start": "next start",
     "type-check": "tsc",
     "lint": "eslint '*/**/*.{js,jsx,ts,tsx}' --quiet --fix",
-    "prettier": "prettier --write './**/*.{ts,tsx,js,jsx,css,scss,json,yaml,md,html}'"
+    "prettier": "prettier --write './**/*.{ts,tsx,js,jsx,css,scss,json,yaml,md,html}'",
+    "scan-wago": "ts-node wago/scanWago.ts"
   },
   "dependencies": {
     "@material-ui/core": "^4.11.3",
     "@material-ui/icons": "^4.11.2",
+    "faunadb": "^4.1.1",
     "instantsearch.css": "^7.4.5",
     "next": "latest",
     "react": "^17.0.1",
@@ -28,12 +30,15 @@
     "@types/react-instantsearch": "^6.10.0",
     "@typescript-eslint/eslint-plugin": "^4.18.0",
     "@typescript-eslint/parser": "^4.18.0",
+    "dotenv": "^8.2.0",
     "eslint": "^7.22.0",
     "eslint-config-prettier": "^8.1.0",
     "eslint-loader": "^4.0.2",
     "eslint-plugin-prettier": "^3.3.1",
     "eslint-plugin-react": "^7.22.0",
     "prettier": "^2.2.1",
+    "sass": "^1.32.8",
+    "ts-node": "^9.1.1",
     "typescript": "4.0"
   },
   "license": "MIT"
