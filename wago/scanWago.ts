@@ -4,7 +4,7 @@ import { Client, query as q } from 'faunadb'
 
 const BATCH_SIZE = 2000
 
-const auras = Object.values(require('./auras.json'))
+// const auras = Object.values(require('./auras.json'))
 const faunaClient = new Client({ secret: process.env.FAUNA_SECRET! })
 
 async function main() {
@@ -36,8 +36,8 @@ async function main() {
 
 try {
   main().catch((error) => {
-    console.error('caught error', error)
+    console.error('caught error through Promise.catch()', error)
   })
 } catch (error) {
-  console.error('caught error 2', error)
+  console.error('caught error through try catch', error)
 }

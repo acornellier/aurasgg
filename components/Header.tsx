@@ -16,6 +16,7 @@ import {
 } from '@material-ui/icons'
 import { connectSearchBox, SearchBoxProvided } from 'react-instantsearch-core'
 import NextLink from 'next/link'
+import { useRouter } from 'next/router'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -76,6 +77,7 @@ interface Props extends SearchBoxProvided {
 
 const Header = ({ toggleTheme, refine, currentRefinement }: Props) => {
   const classes = useStyles()
+  const router = useRouter()
 
   return (
     <AppBar position='fixed' className={classes.appBar}>
@@ -96,8 +98,9 @@ const Header = ({ toggleTheme, refine, currentRefinement }: Props) => {
           </div>
           <InputBase
             value={currentRefinement}
-            onChange={(event) => {
+            onChange={async (event) => {
               refine(event.target.value)
+              await router.push('/search')
               window.scrollTo({ top: 0 })
             }}
             placeholder='Search…'

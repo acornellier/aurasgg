@@ -1,4 +1,3 @@
-import { SearchAura } from 'interfaces'
 import {
   Card,
   CardActionArea,
@@ -13,10 +12,7 @@ import { Visibility as VisibilityIcon } from '@material-ui/icons'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    media: {
-      height: 0,
-      paddingTop: '40%', // 16:9
-    },
+    media: {},
     title: {
       display: 'flex',
       justifyContent: 'space-between',
@@ -34,15 +30,25 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 )
 
-const Hit = ({ hit }: { hit: SearchAura }) => {
+const HitMedia = ({ url, name }: { url: string; name: string }) => {
+  if (url.includes('.webm')) {
+    return <video autoPlay loop src={url} />
+  } else {
+    return <img src={url} alt={name} width={500} height={200} />
+  }
+}
+
+const Hit = ({ hit }: { hit: Aura.SearchAura }) => {
   const classes = useStyles()
 
   return (
     <Card>
-      <NextLink href={`/aura/${hit.slug}`}>
+      <NextLink href={`/${hit.slug}`}>
         <CardActionArea>
           {hit.screens.length > 0 && (
-            <CardMedia className={classes.media} image={hit.screens[0]} />
+            <CardMedia className={classes.media}>
+              <HitMedia url={hit.screens[0]} name={hit.name} />
+            </CardMedia>
           )}
           <CardContent>
             <div className={classes.title}>

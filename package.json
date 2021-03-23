@@ -8,7 +8,8 @@
     "type-check": "tsc",
     "lint": "eslint '*/**/*.{js,jsx,ts,tsx}' --quiet --fix",
     "prettier": "prettier --write './**/*.{ts,tsx,js,jsx,css,scss,json,yaml,md,html}'",
-    "scan-wago": "ts-node wago/scanWago.ts"
+    "scan-wago": "ts-node wago/scanWago.ts",
+    "convert-aura": "ts-node wago/convertAura.ts"
   },
   "dependencies": {
     "@material-ui/core": "^4.11.3",

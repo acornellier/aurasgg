@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
 import { connectInfiniteHits } from 'react-instantsearch-dom'
 import Hit from './Hit'
-import { SearchAura } from 'interfaces'
 import { useIntersect } from 'hooks/useIntersect'
 import { InfiniteHitsProvided } from 'react-instantsearch-core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
@@ -31,7 +30,7 @@ const InfiniteHits = ({
   hits,
   hasMore,
   refineNext,
-}: InfiniteHitsProvided<SearchAura>) => {
+}: InfiniteHitsProvided<Aura.SearchAura>) => {
   const classes = useStyles()
 
   const [ref, entry] = useIntersect({ rootMargin: '200px' })

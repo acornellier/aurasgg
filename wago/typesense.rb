@@ -1,6 +1,7 @@
 require 'typesense'
 require 'json'
 require 'pry'
+require 'fileutils'
 
 require_relative 'categories'
 
@@ -59,13 +60,21 @@ curl "https://#{HOST}:443/collections/auras/documents/import?action=upsert" \
     -X POST \
     --data-binary @new_auras.jsonl
 `
+FileUtils.rm('new_auras.jsonl')
+
+new_auras = res['hits'].map do |h|
+  new_screens = h['document']['screens'].map do |screen|
+    next screen unless screen.end_with?('.gif')
+    key = screen.split('https://media.wago.io/screenshots/')[1].sub('.gif', '.webm')
+    path = File.join('/Users/acornellier/Documents/compressed', key)
+    `aws s3api put-object --bucket elasticbeanstalk-us-east-2-577827958072 --key #{key} --body #{path}`
+    "https://elasticbeanstalk-us-east-2-577827958072.s3.us-east-2.amazonaws.com/screens/#{key}"
+  end
+  h['document'].merge('screens' => new_screens)
+end
 
 res = client.collections['auras'].documents.search(
-  q: 'luxthos paladin',
-  query_by: 'name',
-  filter_by: 'type:WEAKAURA',
-  include_fields: 'name,viewCount',
-  per_page: 10,
-  sort_by: 'viewCount:desc,_text_match:desc',
+  q: '',
+  query_by: 'name,categories',
 )
 pp res;1
