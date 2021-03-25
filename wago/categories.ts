@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const warcraft: any = Object.values(require('./warcraft.json'))
 
 const t = (str: string, _?: any) => {

@@ -41,6 +41,6 @@ declare namespace Aura {
     description: { format: 'bbcode' | 'markdown'; text: string }
     views: number
     gallery: Media[]
-    wago: object
+    wago: Record<string, unknown>
   }
 }

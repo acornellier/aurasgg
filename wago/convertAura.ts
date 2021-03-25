@@ -167,7 +167,7 @@ const convertType = (type: WagoAuraType): Aura.Type => {
 }
 
 const mergeScreensVideos = (videos: WagoAura['videos'], screens: string[]) => {
-  let res: Aura.Media[] = []
+  const res: Aura.Media[] = []
   videos.forEach((video) => {
     res.push({ type: 'video', src: video.url, thumb: video.thumb })
   })
