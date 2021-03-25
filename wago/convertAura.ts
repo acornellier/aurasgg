@@ -1,3 +1,5 @@
+import { convertCategories } from 'wago/categories'
+
 const sampleWago = {
   _id: 'hVLym_eLv',
   type: 'WEAKAURA' as WagoAuraType,
@@ -58,7 +60,7 @@ const sampleWago = {
   ],
   myCollections: ['QuuWkUvmO'],
   user: {
-    name: 'Saxayone#2791',
+    name: 'Saxayone#2791' as string | undefined,
     searchable: true,
     roleClass: 'user-default',
     avatar: {
@@ -85,7 +87,9 @@ const sampleWago = {
     {
       _id: '57c07a709d566c471f488ec7',
       url: 'https://www.youtube.com/embed/RBL2W6jNgxo?autoplay=1',
-      thumb: 'https://img.youtube.com/vi/RBL2W6jNgxo/0.jpg',
+      thumb: 'https://img.youtube.com/vi/RBL2W6jNgxo/0.jpg' as
+        | string
+        | undefined,
       embed:
         '<iframe src="https://www.youtube.com/embed/RBL2W6jNgxo&autoplay=1" frameborder="0" scrolling="no"></iframe>',
     },
@@ -132,8 +136,11 @@ const sampleWago = {
   s3screens: [
     'https://elasticbeanstalk-us-east-2-577827958072.s3.us-east-2.amazonaws.com/screens/abcdefgh.webm',
   ] as string[] | undefined,
+  code: '' as string | null | undefined,
 }
-type WagoAura = typeof sampleWago
+
+export type WagoAura = typeof sampleWago
+
 type WagoAuraType =
   | 'WEAKAURA'
   | 'MDT'
@@ -145,7 +152,7 @@ type WagoAuraType =
 class UnsupportedAura extends Error {
   constructor(message: string) {
     super('Unsupported aura: ' + message)
-    this.name = 'ConvertAuraError'
+    this.name = 'UnsupportedAura'
   }
 }
 
@@ -161,19 +168,31 @@ const convertType = (type: WagoAuraType): Aura.Type => {
       return 'mdt'
     case 'CLASSIC-WEAKAURA':
       return 'classic-weakaura'
+    case 'VUHDO':
+      return 'vuhdo'
     default:
       throw new UnsupportedAura(`type: ${type}`)
   }
 }
 
-const mergeScreensVideos = (videos: WagoAura['videos'], screens: string[]) => {
+const supportedExts = ['.webm', '.webp', '.jpg', '.png']
+const mergeScreensVideos = (
+  videos: WagoAura['videos'],
+  screens: string[] | undefined,
+) => {
+  if (screens === undefined) {
+    throw new UnsupportedAura('missing screens')
+  }
+
   const res: Aura.Media[] = []
   videos.forEach((video) => {
-    res.push({ type: 'video', src: video.url, thumb: video.thumb })
+    const item: Aura.Media = { type: 'video', src: video.url }
+    if (video.thumb) item.thumb = video.thumb
+    res.push(item)
   })
   screens.forEach((screen) => {
-    if (!['.webm', '.webp'].some((ext) => screen.endsWith(ext))) {
-      throw new UnsupportedAura(`invalid screen extension: #{screen}`)
+    if (!supportedExts.some((ext) => screen.toLowerCase().endsWith(ext))) {
+      throw new UnsupportedAura(`invalid screen extension: ${screen}`)
     }
 
     res.push({ type: 'screen', src: screen })
@@ -181,25 +200,43 @@ const mergeScreensVideos = (videos: WagoAura['videos'], screens: string[]) => {
   return res
 }
 
-export const convertAura = (
-  wago: WagoAura,
-  id: string,
-  code: string,
-): Aura.Aura => {
-  if (!wago.s3screens) {
-    throw new UnsupportedAura('screens not yet converted')
+const convertCode = (code: string | null | undefined) => {
+  if (code === undefined) {
+    throw new UnsupportedAura('missing code')
   }
 
-  return {
-    id,
-    date: wago.date,
-    code: code,
-    name: wago.name,
-    type: convertType(wago.type),
-    categories: wago.categories,
-    description: wago.description,
-    views: wago.viewCount,
-    gallery: mergeScreensVideos(wago.videos, wago.s3screens),
-    wago,
+  if (code === null) {
+    throw new UnsupportedAura('code is null')
+  }
+
+  return code
+}
+
+export const convertErrors: string[] = []
+export const convertAura = (wago: WagoAura): Aura.Aura | null => {
+  try {
+    return {
+      id: wago.slug,
+      type: convertType(wago.type),
+      date: wago.date,
+      code: convertCode(wago.code),
+      name: wago.name,
+      categories: convertCategories(wago.categories),
+      description: wago.description,
+      views: wago.viewCount,
+      gallery: mergeScreensVideos(wago.videos, wago.s3screens),
+      wago: {
+        slug: wago.slug,
+        categories: wago.categories,
+        username: wago.user.name || '',
+      },
+    }
+  } catch (error) {
+    if (error.name === 'UnsupportedAura') {
+      convertErrors.push(error.message)
+      return null
+    }
+
+    throw error
   }
 }

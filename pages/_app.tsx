@@ -1,3 +1,4 @@
+import { analytics } from 'utils/firebase'
 import 'pages/app.sass'
 import 'instantsearch.css/themes/reset.css'
 
@@ -17,6 +18,7 @@ import {
 import Header from 'components/Header'
 import { InstantSearch } from 'react-instantsearch-dom'
 import searchClient from 'utils/searchClient'
+import { useRouter } from 'next/router'
 
 const THEME_COOKIE = 'theme'
 
@@ -31,6 +33,24 @@ const useStyles = makeStyles((theme: Theme) =>
 )
 
 const App = ({ Component, pageProps }: AppProps) => {
+  const router = useRouter()
+
+  useEffect(() => {
+    if (process.env.NODE_ENV !== 'production') return
+
+    const logEvent = (url: string) => {
+      analytics().setCurrentScreen(url)
+      analytics().logEvent('screen_view')
+    }
+
+    router.events.on('routeChangeComplete', logEvent)
+    logEvent(window.location.pathname)
+
+    return () => {
+      router.events.off('routeChangeComplete', logEvent)
+    }
+  }, [])
+
   const classes = useStyles()
 
   const [cookies, setCookie] = useCookies([THEME_COOKIE])

@@ -29,6 +29,7 @@ module.exports = {
   rules: {
     'react/prop-types': 'off',
     'prettier/prettier': 'error',
+    '@typescript-eslint/ban-ts-comment': 'off',
     // needed for NextJS's jsx without react import
     'react/react-in-jsx-scope': 'off',
   },

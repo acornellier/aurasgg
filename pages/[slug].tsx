@@ -1,6 +1,5 @@
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { GetServerSideProps } from 'next'
-import { Client, query as q } from 'faunadb'
 import { Typography } from '@material-ui/core'
 import { useMemo } from 'react'
 import XBBCode from 'utils/xbbcode'
@@ -37,15 +36,13 @@ const AuraPage = ({ aura }: Props) => {
 
 export default AuraPage
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const faunaClient = new Client({ secret: process.env.FAUNA_SECRET! })
-
-  const res = await faunaClient.query<{ data: Aura.Wago }>(
-    q.Get(q.Match(q.Index('auras_by_slug'), context.params!.slug)),
-  )
+export const getServerSideProps: GetServerSideProps<Props> = async (
+  context,
+) => {
+  // TODO
   return {
     props: {
-      aura: res.data,
+      aura: {} as any,
     },
   }
 }

@@ -1,7 +1,7 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const warcraft: any = Object.values(require('./warcraft.json'))
 
-const t = (str: string, _?: any) => {
+const t = (str: string, _?: any): string => {
   const [prefix, categoryPath] = str.split('warcraft:')
   if (!categoryPath) {
     return str
@@ -20,7 +20,50 @@ const t = (str: string, _?: any) => {
   return category
 }
 
-export const categories = [
+export type Category = {
+  id: string
+  slug: string
+  cls: string
+  text: string
+  root?: boolean
+  contains?: string[]
+
+  systemtag?: boolean
+  noselect?: boolean
+  prime?: boolean
+  hideFromMenu?: boolean
+
+  'CLASSIC-WEAKAURA'?: boolean
+  WEAKAURA?: boolean
+  ELVUI?: boolean
+  VUHDO?: boolean
+  PLATER?: boolean
+  OPIE?: boolean
+  COLLECTION?: boolean
+  legion?: boolean
+  bfa?: boolean
+  sl?: boolean
+  classic?: boolean
+  MDT?: boolean
+  TOTALRP3?: boolean
+  'LUA SNIPPET'?: boolean
+}
+
+export const convertCategories = (categoryIds: string[]): Aura.Category[] => {
+  let newCategories: Aura.Category[] = []
+
+  categoryIds.forEach((id) => {
+    const categoryObj = categories.find((category) => category.id === id)
+    if (id.startsWith('cl')) {
+    }
+
+    throw new Error('fail')
+  })
+
+  return newCategories
+}
+
+export const categories: Category[] = [
   {
     id: 'cl6',
     slug: 'classes/death-knight',
@@ -2939,7 +2982,6 @@ export const categories = [
     slug: 'pve/legacy',
     cls: '',
     text: t('Legacy Content'),
-    menucol: 5,
     noselect: true,
   },
 
