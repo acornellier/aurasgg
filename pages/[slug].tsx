@@ -7,7 +7,7 @@ import XBBCode from 'utils/xbbcode'
 const useStyles = makeStyles((theme: Theme) => createStyles({}))
 
 interface Props {
-  aura: Aura.Wago
+  aura: any
 }
 
 const AuraPage = ({ aura }: Props) => {

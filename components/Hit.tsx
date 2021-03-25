@@ -38,7 +38,7 @@ const HitMedia = ({ url, name }: { url: string; name: string }) => {
   }
 }
 
-const Hit = ({ hit }: { hit: Aura.SearchAura }) => {
+const Hit = ({ hit }: { hit: any }) => {
   const classes = useStyles()
 
   return (
@@ -59,7 +59,7 @@ const Hit = ({ hit }: { hit: Aura.SearchAura }) => {
               </div>
             </div>
             <div>
-              {hit.categories.map((category) => (
+              {hit.categories.map((category: string) => (
                 <Chip
                   key={category}
                   className={classes.category}
