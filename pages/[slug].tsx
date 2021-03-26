@@ -1,48 +1,36 @@
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
-import { GetServerSideProps } from 'next'
-import { Typography } from '@material-ui/core'
-import { useMemo } from 'react'
-import XBBCode from 'utils/xbbcode'
+import { CircularProgress } from '@material-ui/core'
+import React from 'react'
+import { useDocumentDataOnce } from 'react-firebase-hooks/firestore'
+import { useRouter } from 'next/router'
+import { db } from 'utils/firebase'
+import AuraComponent from 'components/AuraComponent'
 
-const useStyles = makeStyles((theme: Theme) => createStyles({}))
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    loader: {},
+  }),
+)
 
-interface Props {
-  aura: any
-}
-
-const AuraPage = ({ aura }: Props) => {
+const AuraPage = () => {
   const classes = useStyles()
+  const router = useRouter()
 
-  const description = useMemo(() => {
-    return XBBCode.process({
-      text: aura.description.text,
-      removeMisalignedTags: true,
-      addInLineBreaks: true,
-      enableURLs: true,
-    }).html
-  }, [aura])
+  const slug = router.query.slug as string
 
-  return (
-    <div>
-      <Typography variant='h6'>{aura.name}</Typography>
-      {aura.screens.length > 0 && <img src={aura.screens[0].src} />}
-      <div
-        className={'bbcode'}
-        dangerouslySetInnerHTML={{ __html: description }}
-      />
-    </div>
+  const [aura, loading, error] = useDocumentDataOnce<Aura.Aura>(
+    db().collection('auras').doc(slug),
   )
+
+  if (loading || !aura) {
+    return <CircularProgress className={classes.loader} color='secondary' />
+  }
+
+  if (error) {
+    return <div>Error fetching Aura: {error.message}</div>
+  }
+
+  return <AuraComponent aura={aura} />
 }
 
 export default AuraPage
-
-export const getServerSideProps: GetServerSideProps<Props> = async (
-  context,
-) => {
-  // TODO
-  return {
-    props: {
-      aura: {} as any,
-    },
-  }
-}

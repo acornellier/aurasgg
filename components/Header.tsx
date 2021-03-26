@@ -89,7 +89,7 @@ const Header = ({ toggleTheme, refine, currentRefinement }: Props) => {
             color='inherit'
             size='large'
           >
-            <Hidden xsDown>Wowtail</Hidden>
+            <Hidden xsDown>auras.gg</Hidden>
           </Button>
         </NextLink>
         <div className={classes.search}>

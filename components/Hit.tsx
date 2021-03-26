@@ -9,6 +9,7 @@ import {
 import NextLink from 'next/link'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { Visibility as VisibilityIcon } from '@material-ui/icons'
+import { GalleryItem } from 'components/GalleryItem'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -30,31 +31,25 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 )
 
-const HitMedia = ({ url, name }: { url: string; name: string }) => {
-  if (url.includes('.webm')) {
-    return <video autoPlay loop src={url} />
-  } else {
-    return <img src={url} alt={name} width={500} height={200} />
-  }
-}
-
-const Hit = ({ hit }: { hit: any }) => {
+const Hit = ({ hit }: { hit: Aura.SearchAura }) => {
   const classes = useStyles()
+
+  const preview = hit.gallery.find((media) => media.type === 'screen')
 
   return (
     <Card>
-      <NextLink href={`/${hit.slug}`}>
+      <NextLink href={`/${hit.id}`}>
         <CardActionArea>
-          {hit.screens.length > 0 && (
+          {preview && (
             <CardMedia className={classes.media}>
-              <HitMedia url={hit.screens[0]} name={hit.name} />
+              <GalleryItem media={preview} />
             </CardMedia>
           )}
           <CardContent>
             <div className={classes.title}>
               <Typography variant='h6'>{hit.name}</Typography>
               <div className={classes.viewCount}>
-                {hit.viewCount}
+                {hit.views}
                 <VisibilityIcon />
               </div>
             </div>

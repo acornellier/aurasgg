@@ -10,7 +10,7 @@ const SearchPage = () => {
 
   return (
     <>
-      {/*<SearchDrawer />*/}
+      <SearchDrawer />
       <InfiniteHits />
     </>
   )

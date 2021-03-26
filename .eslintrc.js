@@ -1,5 +1,4 @@
 module.exports = {
-  // Specifies the ESLint parser
   parser: '@typescript-eslint/parser',
   extends: [
     'plugin:react/recommended',
@@ -31,6 +30,7 @@ module.exports = {
     'prettier/prettier': 'error',
     '@typescript-eslint/ban-ts-comment': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
+    '@typescript-eslint/explicit-module-boundary-types': 'off',
     // needed for NextJS's jsx without react import
     'react/react-in-jsx-scope': 'off',
   },

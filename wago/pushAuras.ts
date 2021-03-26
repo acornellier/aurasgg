@@ -66,17 +66,17 @@ const main = async () => {
     console.log(`pushing auras ${i} to ${i + batchSize} of ${converted.length}`)
     const batch = converted.slice(i, i + batchSize)
 
-    const dbBatch = db().batch()
-    const dbCol = db().collection('auras')
-    batch.forEach((aura) => dbBatch.set(dbCol.doc(aura.id), aura))
-    await dbBatch.commit()
+    // const dbBatch = db().batch()
+    // const dbCol = db().collection('auras')
+    // batch.forEach((aura) => dbBatch.set(dbCol.doc(aura.id), aura))
+    // await dbBatch.commit()
 
     const searchAuras: Aura.SearchAura[] = batch.map((aura) => ({
       id: aura.id,
       type: aura.type,
       code: aura.code,
       name: aura.name,
-      categories: aura.categories.map((category) => category.id),
+      categories: aura.categories.map((category) => category.text),
       description: aura.description,
       views: aura.views,
       gallery: aura.gallery,

@@ -75,7 +75,7 @@ const App = ({ Component, pageProps }: AppProps) => {
   return (
     <>
       <Head>
-        <title>Wowtail</title>
+        <title>auras.gg</title>
         <meta charSet='utf-8' />
         <meta
           name='viewport'
