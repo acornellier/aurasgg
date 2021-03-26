@@ -1,5 +1,3 @@
-import { convertCategories } from 'wago/categories'
-
 const sampleWago = {
   _id: 'hVLym_eLv',
   type: 'WEAKAURA' as WagoAuraType,
@@ -137,6 +135,7 @@ const sampleWago = {
     'https://elasticbeanstalk-us-east-2-577827958072.s3.us-east-2.amazonaws.com/screens/abcdefgh.webm',
   ] as string[] | undefined,
   code: '' as string | null | undefined,
+  newCategories: [] as Aura.Category[] | undefined,
 }
 
 export type WagoAura = typeof sampleWago
@@ -148,6 +147,7 @@ type WagoAuraType =
   | 'PLATER'
   | 'VUHDO'
   | 'CLASSIC-WEAKAURA'
+  | 'TOTALRP3'
 
 class UnsupportedAura extends Error {
   constructor(message: string) {
@@ -170,6 +170,8 @@ const convertType = (type: WagoAuraType): Aura.Type => {
       return 'classic-weakaura'
     case 'VUHDO':
       return 'vuhdo'
+    case 'TOTALRP3':
+      return 'totalrp3'
     default:
       throw new UnsupportedAura(`type: ${type}`)
   }
@@ -212,6 +214,14 @@ const convertCode = (code: string | null | undefined) => {
   return code
 }
 
+const convertCategories = (newCategories: Aura.Category[] | undefined) => {
+  if (newCategories === undefined) {
+    throw new UnsupportedAura('missing newCategorise')
+  }
+
+  return newCategories
+}
+
 export const convertErrors: string[] = []
 export const convertAura = (wago: WagoAura): Aura.Aura | null => {
   try {
@@ -221,13 +231,12 @@ export const convertAura = (wago: WagoAura): Aura.Aura | null => {
       date: wago.date,
       code: convertCode(wago.code),
       name: wago.name,
-      categories: convertCategories(wago.categories),
+      categories: convertCategories(wago.newCategories),
       description: wago.description,
       views: wago.viewCount,
       gallery: mergeScreensVideos(wago.videos, wago.s3screens),
       wago: {
-        slug: wago.slug,
-        categories: wago.categories,
+        url: wago.url,
         username: wago.user.name || '',
       },
     }
