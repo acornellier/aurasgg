@@ -30,6 +30,7 @@ module.exports = {
     'react/prop-types': 'off',
     'prettier/prettier': 'error',
     '@typescript-eslint/ban-ts-comment': 'off',
+    '@typescript-eslint/no-explicit-any': 'off',
     // needed for NextJS's jsx without react import
     'react/react-in-jsx-scope': 'off',
   },

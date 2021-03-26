@@ -1,9 +1,4 @@
 declare namespace Aura {
-  export interface SearchAura extends AuraCommon {
-    id: string
-    screens: string[]
-  }
-
   export type Type =
     | 'weakaura'
     | 'plater'
@@ -11,11 +6,16 @@ declare namespace Aura {
     | 'mdt'
     | 'classic-weakaura'
     | 'vuhdo'
+    | 'totalrp3'
 
   export type MediaType = 'video' | 'screen'
   export type Media = { type: MediaType; src: string; thumb?: string }
 
-  export type Category = import('./categories').Category
+  export interface Category {
+    id: string
+    text: string
+    root: boolean
+  }
 
   export interface Aura {
     id: string
@@ -23,13 +23,29 @@ declare namespace Aura {
     date: { created: string; modified: string }
     code: string
     name: string
-    categories: Category['id']
+    categories: Category[]
     description: { format: 'bbcode' | 'markdown'; text: string }
     views: number
     gallery: Media[]
     wago?: {
-      slug: string
-      categories: string[]
+      url: string
+      username: string
+    }
+  }
+
+  export interface SearchAura {
+    id: string
+    type: Type
+    dateCreated: string
+    dateModified: string
+    code: string
+    name: string
+    categories: string[]
+    description: { format: 'bbcode' | 'markdown'; text: string }
+    views: number
+    gallery: Media[]
+    wago?: {
+      url: string
       username: string
     }
   }

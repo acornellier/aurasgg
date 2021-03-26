@@ -1,6 +1,6 @@
 require 'json'
 
-WARCRAFT = JSON.parse(File.read('warcraft.json'))
+WARCRAFT = JSON.parse(File.read('/Users/acornellier/git/aurasgg/wago/warcraft.json'))
 
 def t(str, _ = nil)
   a, b = str.split('warcraft:')
@@ -11,12 +11,6 @@ def t(str, _ = nil)
 
   WARCRAFT.dig(rest[0], rest[1]).tap do |res|
     raise "Could not find category for #{str}" unless res
-  end
-end
-
-def categories
-  @categories ||= CATEGORIES.to_h do |category|
-    [category[:id], category.transform_keys(&:to_s)]
   end
 end
 
@@ -4923,6 +4917,16 @@ CATEGORIES = [
     WEAKAURA: true,
   },
   {
+    id: 'beta-bfa',
+    slug: 'beta-bfa',
+    cls: 'snippets',
+    text: t('BFA Beta'),
+    root: true,
+    noselect: true,
+    systemtag: true,
+    WEAKAURA: true,
+  },
+  {
     id: 'classicdungeon',
     slug: 'pve/classic-dungeons',
     cls: 'dungeon',
@@ -5773,4 +5777,8 @@ CATEGORIES = [
     WEAKAURA: true,
     classic: true,
   },
-]
+].map do |category|
+  category.transform_keys(&:to_s)
+end
+
+CATEGORY_HASH = CATEGORIES.to_h { |category| [category['id'], category] }
