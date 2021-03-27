@@ -20,7 +20,8 @@ declare namespace Aura {
   export interface Aura {
     id: string
     type: Type
-    date: { created: string; modified: string }
+    dateCreated: string
+    dateModified: string
     code: string
     name: string
     categories: Category[]
@@ -33,20 +34,7 @@ declare namespace Aura {
     }
   }
 
-  export interface SearchAura {
-    id: string
-    type: Type
-    dateCreated: string
-    dateModified: string
-    code: string
-    name: string
-    categories: string[]
-    description: { format: 'bbcode' | 'markdown'; text: string }
-    views: number
-    gallery: Media[]
-    wago?: {
-      url: string
-      username: string
-    }
+  export interface SearchAura extends Aura {
+    categoryNames: string[]
   }
 }

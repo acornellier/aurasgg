@@ -54,7 +54,7 @@ const Hit = ({ hit }: { hit: Aura.SearchAura }) => {
               </div>
             </div>
             <div>
-              {hit.categories.map((category: string) => (
+              {hit.categoryNames.map((category: string) => (
                 <Chip
                   key={category}
                   className={classes.category}

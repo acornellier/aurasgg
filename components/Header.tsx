@@ -5,7 +5,6 @@ import {
   fade,
   Hidden,
   IconButton,
-  InputBase,
   Toolbar,
 } from '@material-ui/core'
 import React from 'react'
@@ -14,9 +13,9 @@ import {
   Search as SearchIcon,
   Widgets as WidgetsIcon,
 } from '@material-ui/icons'
-import { connectSearchBox, SearchBoxProvided } from 'react-instantsearch-core'
 import NextLink from 'next/link'
-import { useRouter } from 'next/router'
+import SearchBox from 'components/SearchBox'
+import { useToggleTheme } from 'components/ThemeProvider'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -52,32 +51,13 @@ const useStyles = makeStyles((theme: Theme) =>
       alignItems: 'center',
       justifyContent: 'center',
     },
-    inputRoot: {
-      color: 'inherit',
-    },
-    inputInput: {
-      padding: theme.spacing(1, 1, 1, 0),
-      // vertical padding + font size from searchIcon
-      paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
-      transition: theme.transitions.create('width'),
-      width: '100%',
-      [theme.breakpoints.up('sm')]: {
-        width: '12ch',
-        '&:focus': {
-          width: '20ch',
-        },
-      },
-    },
   }),
 )
 
-interface Props extends SearchBoxProvided {
-  toggleTheme: () => void
-}
-
-const Header = ({ toggleTheme, refine, currentRefinement }: Props) => {
+const Header = () => {
   const classes = useStyles()
-  const router = useRouter()
+
+  const toggleTheme = useToggleTheme()
 
   return (
     <AppBar position='fixed' className={classes.appBar}>
@@ -96,20 +76,7 @@ const Header = ({ toggleTheme, refine, currentRefinement }: Props) => {
           <div className={classes.searchIcon}>
             <SearchIcon />
           </div>
-          <InputBase
-            value={currentRefinement}
-            onChange={async (event) => {
-              refine(event.target.value)
-              await router.push('/search')
-              window.scrollTo({ top: 0 })
-            }}
-            placeholder='Search…'
-            classes={{
-              root: classes.inputRoot,
-              input: classes.inputInput,
-            }}
-            inputProps={{ 'aria-label': 'search' }}
-          />
+          <SearchBox />
         </div>
         <IconButton onClick={toggleTheme}>
           <Brightness7Icon />
@@ -119,4 +86,4 @@ const Header = ({ toggleTheme, refine, currentRefinement }: Props) => {
   )
 }
 
-export default connectSearchBox(Header)
+export default Header

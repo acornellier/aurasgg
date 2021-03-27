@@ -1,5 +1,6 @@
 import TypesenseInstantSearchAdapter from 'typesense-instantsearch-adapter'
 
+// TODO: do not make search queries from the server
 const typesenseAdapter = new TypesenseInstantSearchAdapter({
   server: {
     apiKey: process.env.NEXT_PUBLIC_TYPESENSE_API_KEY,
@@ -12,7 +13,7 @@ const typesenseAdapter = new TypesenseInstantSearchAdapter({
     ],
   },
   additionalSearchParameters: {
-    queryBy: 'name,categories',
+    queryBy: 'name,categoryNames',
   },
 })
 

@@ -228,7 +228,8 @@ export const convertAura = (wago: WagoAura): Aura.Aura | null => {
     return {
       id: wago.slug,
       type: convertType(wago.type),
-      date: wago.date,
+      dateCreated: wago.date.created,
+      dateModified: wago.date.modified,
       code: convertCode(wago.code),
       name: wago.name,
       categories: convertCategories(wago.newCategories),

@@ -2,6 +2,7 @@ module.exports = {
   parser: '@typescript-eslint/parser',
   extends: [
     'plugin:react/recommended',
+    'plugin:react-hooks/recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:prettier/recommended',
   ],
@@ -15,7 +16,7 @@ module.exports = {
     node: true,
     es6: true,
   },
-  plugins: ['@typescript-eslint', 'react', 'prettier'],
+  plugins: ['@typescript-eslint', 'react', 'react-hooks', 'prettier'],
   parserOptions: {
     ecmaFeatures: {
       jsx: true,
@@ -26,13 +27,17 @@ module.exports = {
     sourceType: 'module',
   },
   rules: {
-    'react/prop-types': 'off',
     'prettier/prettier': 'error',
+    'react-hooks/rules-of-hooks': 'error',
+    'react-hooks/exhaustive-deps': 'error',
+
+    // needed for NextJS's jsx without react import
+    'react/react-in-jsx-scope': 'off',
+
+    'react/prop-types': 'off',
     '@typescript-eslint/ban-ts-comment': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
-    // needed for NextJS's jsx without react import
-    'react/react-in-jsx-scope': 'off',
   },
   globals: { React: 'writable' },
 }

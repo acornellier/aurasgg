@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react'
 import { connectInfiniteHits } from 'react-instantsearch-dom'
 import Hit from './Hit'
-import { useIntersect } from 'hooks/useIntersect'
 import { InfiniteHitsProvided } from 'react-instantsearch-core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { CircularProgress } from '@material-ui/core'
+import { useInView } from 'react-intersection-observer'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -33,13 +33,11 @@ const InfiniteHits = ({
 }: InfiniteHitsProvided<Aura.SearchAura>) => {
   const classes = useStyles()
 
-  const [ref, entry] = useIntersect({ rootMargin: '200px' })
+  const [ref, inView] = useInView({ rootMargin: '200px' })
 
   useEffect(() => {
-    if (entry?.isIntersecting && hasMore) {
-      refineNext()
-    }
-  }, [entry])
+    if (inView) refineNext()
+  }, [inView, refineNext])
 
   return (
     <div className={classes.list}>

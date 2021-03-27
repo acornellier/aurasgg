@@ -24,6 +24,7 @@ const hsetAsync = promisify(redisClient.hset).bind(redisClient)
 const main = async () => {
   const collections = await typesenseClient.collections().retrieve()
   if (!collections.some((collection: any) => collection.name == 'auras')) {
+    console.log('creating typesense auras collection')
     await typesenseClient.collections().create({
       name: 'auras',
       fields: [
@@ -31,7 +32,7 @@ const main = async () => {
         { name: 'dateCreated', type: 'string' },
         { name: 'dateModified', type: 'string' },
         { name: 'name', type: 'string' },
-        { name: 'categories', type: 'string[]', facet: true },
+        { name: 'categoryNames', type: 'string[]', facet: true },
         { name: 'views', type: 'int32' },
       ],
       default_sorting_field: 'views',
@@ -61,27 +62,19 @@ const main = async () => {
     .map((wago) => convertAura(wago))
     .filter(Boolean) as Aura.Aura[]
 
-  const batchSize = 100
+  const batchSize = 500
   for (let i = 0; i < converted.length; i += batchSize) {
     console.log(`pushing auras ${i} to ${i + batchSize} of ${converted.length}`)
     const batch = converted.slice(i, i + batchSize)
 
-    // const dbBatch = db().batch()
-    // const dbCol = db().collection('auras')
-    // batch.forEach((aura) => dbBatch.set(dbCol.doc(aura.id), aura))
-    // await dbBatch.commit()
+    const dbBatch = db().batch()
+    const dbCol = db().collection('auras')
+    batch.forEach((aura) => dbBatch.set(dbCol.doc(aura.id), aura))
+    await dbBatch.commit()
 
     const searchAuras: Aura.SearchAura[] = batch.map((aura) => ({
-      id: aura.id,
-      type: aura.type,
-      code: aura.code,
-      name: aura.name,
-      categories: aura.categories.map((category) => category.text),
-      description: aura.description,
-      views: aura.views,
-      gallery: aura.gallery,
-      dateCreated: aura.date.created,
-      dateModified: aura.date.modified,
+      ...aura,
+      categoryNames: aura.categories.map((category) => category.text),
     }))
 
     const res = await typesenseClient

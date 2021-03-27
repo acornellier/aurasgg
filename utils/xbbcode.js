@@ -1,3 +1,4 @@
+/* eslint-disable */
 /*
 Copyright (C) 2011 Patrick Gillespie, http://patorjk.com/
 

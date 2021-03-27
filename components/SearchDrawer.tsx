@@ -22,19 +22,23 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 )
 
-const SearchDrawer = () => {
+const DrawerContainer = () => {
   const classes = useStyles()
-  const [mobileOpen, setMobileOpen] = React.useState(false)
 
-  const drawer = (
+  return (
     <Container className={classes.drawerContainer}>
       <Toolbar />
       <h2>Type</h2>
       <RefinementList attribute='type' />
       <h2>Category</h2>
-      <RefinementList attribute='categories' />
+      <RefinementList attribute='categoryNames' />
     </Container>
   )
+}
+
+const SearchDrawer = () => {
+  const classes = useStyles()
+  const [mobileOpen, setMobileOpen] = React.useState(false)
 
   return (
     <>
@@ -46,7 +50,7 @@ const SearchDrawer = () => {
           classes={{ paper: classes.drawerPaper }}
           ModalProps={{ keepMounted: true }}
         >
-          {drawer}
+          <DrawerContainer />
         </Drawer>
       </Hidden>
       <Hidden xsDown implementation='css'>
@@ -56,7 +60,7 @@ const SearchDrawer = () => {
           variant='permanent'
           open
         >
-          {drawer}
+          <DrawerContainer />
         </Drawer>
       </Hidden>
     </>
