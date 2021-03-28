@@ -1,7 +1,7 @@
 import React from 'react'
 import Drawer from '@material-ui/core/Drawer'
 import Hidden from '@material-ui/core/Hidden'
-import { RefinementList } from 'react-instantsearch-dom'
+import { NumericMenu, RefinementList } from 'react-instantsearch-dom'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { Container, Toolbar } from '@material-ui/core'
 
@@ -28,6 +28,12 @@ const DrawerContainer = () => {
   return (
     <Container className={classes.drawerContainer}>
       <Toolbar />
+      <h2>Views</h2>
+      <NumericMenu
+        attribute='views'
+        items={[{ label: '> 100 views', start: 100 }]}
+        defaultRefinement='100:'
+      />
       <h2>Type</h2>
       <RefinementList attribute='type' />
       <h2>Category</h2>

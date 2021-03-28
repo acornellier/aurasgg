@@ -29,11 +29,11 @@ const main = async () => {
       name: 'auras',
       fields: [
         { name: 'type', type: 'string', facet: true },
-        { name: 'dateCreated', type: 'string' },
-        { name: 'dateModified', type: 'string' },
+        { name: 'dateCreated', type: 'string', facet: true },
+        { name: 'dateModified', type: 'string', facet: true },
         { name: 'name', type: 'string' },
         { name: 'categoryNames', type: 'string[]', facet: true },
-        { name: 'views', type: 'int32' },
+        { name: 'views', type: 'int32', facet: true },
       ],
       default_sorting_field: 'views',
     })
