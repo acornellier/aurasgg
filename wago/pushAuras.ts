@@ -29,8 +29,8 @@ const main = async () => {
       name: 'auras',
       fields: [
         { name: 'type', type: 'string', facet: true },
-        { name: 'dateCreated', type: 'string', facet: true },
-        { name: 'dateModified', type: 'string', facet: true },
+        { name: 'epochCreated', type: 'int64', facet: true },
+        { name: 'epochModified', type: 'int64', facet: true },
         { name: 'name', type: 'string' },
         { name: 'categoryNames', type: 'string[]', facet: true },
         { name: 'views', type: 'int32', facet: true },
@@ -74,6 +74,8 @@ const main = async () => {
 
     const searchAuras: Aura.SearchAura[] = batch.map((aura) => ({
       ...aura,
+      epochCreated: Date.parse(aura.dateCreated),
+      epochModified: Date.parse(aura.dateModified),
       categoryNames: aura.categories.map((category) => category.text),
     }))
 

@@ -10,6 +10,7 @@ import NextLink from 'next/link'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { Visibility as VisibilityIcon } from '@material-ui/icons'
 import { GalleryItem } from 'components/GalleryItem'
+import { useState } from 'react'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -34,7 +35,13 @@ const useStyles = makeStyles((theme: Theme) =>
 const Hit = ({ hit }: { hit: Aura.SearchAura }) => {
   const classes = useStyles()
 
+  const [expandedCategories, setExpandedCategories] = useState(false)
+
   const preview = hit.gallery.find((media) => media.type === 'screen')
+
+  const categories = expandedCategories
+    ? hit.categoryNames
+    : hit.categoryNames.slice(0, 5)
 
   return (
     <Card>
@@ -54,13 +61,23 @@ const Hit = ({ hit }: { hit: Aura.SearchAura }) => {
               </div>
             </div>
             <div>
-              {hit.categoryNames.map((category: string) => (
+              {categories.map((category: string) => (
                 <Chip
                   key={category}
                   className={classes.category}
                   label={category}
                 />
               ))}
+              {hit.categoryNames.length > 5 && !expandedCategories && (
+                <Chip
+                  className={classes.category}
+                  label='...'
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    setExpandedCategories(!expandedCategories)
+                  }}
+                />
+              )}
             </div>
           </CardContent>
         </CardActionArea>

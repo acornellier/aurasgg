@@ -1,7 +1,7 @@
 import React from 'react'
 import Drawer from '@material-ui/core/Drawer'
 import Hidden from '@material-ui/core/Hidden'
-import { NumericMenu, RefinementList } from 'react-instantsearch-dom'
+import { NumericMenu, RefinementList, SortBy } from 'react-instantsearch-dom'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { Container, Toolbar } from '@material-ui/core'
 
@@ -28,6 +28,21 @@ const DrawerContainer = () => {
   return (
     <Container className={classes.drawerContainer}>
       <Toolbar />
+      <h2>Sort by</h2>
+      <SortBy
+        items={[
+          { value: 'auras/sort/views:desc', label: 'Views' },
+          {
+            value: 'auras/sort/epochModified:desc',
+            label: 'Date modified',
+          },
+          {
+            value: 'auras/sort/epochCreated:desc',
+            label: 'Date created',
+          },
+        ]}
+        defaultRefinement='auras'
+      />
       <h2>Views</h2>
       <NumericMenu
         attribute='views'

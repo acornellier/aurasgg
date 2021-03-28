@@ -17,7 +17,20 @@ client = Typesense::Client.new(
 )
 
 res = client.collections['auras'].documents.search(
-  q: 'Paladin',
+  q: '',
   query_by: 'name,categoryNames',
-  per_page: 50,
+  per_page: 10,
+)
+
+client.collections.create(
+  name: 'auras',
+  fields: [
+    { name: 'type', type: 'string', facet: true },
+    { name: 'epochCreated', type: 'int64', facet: true },
+    { name: 'epochModified', type: 'int64', facet: true },
+    { name: 'name', type: 'string' },
+    { name: 'categoryNames', type: 'string[]', facet: true },
+    { name: 'views', type: 'int32', facet: true },
+  ],
+  default_sorting_field: 'views',
 )

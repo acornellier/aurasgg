@@ -35,6 +35,8 @@ declare namespace Aura {
   }
 
   export interface SearchAura extends Aura {
+    epochCreated: number
+    epochModified: number
     categoryNames: string[]
   }
 }
