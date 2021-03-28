@@ -8,7 +8,8 @@ const searchRoute = '/search'
 const searchRouteWithQuery = searchRoute + '?'
 const debounceTime = 500
 
-export const createURL = (state: any) => `?${qs.stringify(state)}`
+export const createURL = (state: any) =>
+  `?${qs.stringify({ ...state, page: undefined })}`
 
 const searchStateToUrl = (state: any) =>
   state ? `/search${createURL(state)}` : ''
