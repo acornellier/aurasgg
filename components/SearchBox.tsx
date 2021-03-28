@@ -1,7 +1,6 @@
 import { connectSearchBox, SearchBoxProvided } from 'react-instantsearch-core'
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { InputBase } from '@material-ui/core'
-import { useRouter } from 'next/router'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -25,7 +24,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 )
 
-type ChangeEvent = React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
+type KeyboardEvent = React.KeyboardEvent<HTMLTextAreaElement | HTMLInputElement>
 
 const differentRefinement = (before: string, after: string) => {
   return before.trim().toLowerCase() !== after.trim().toLowerCase()
@@ -43,8 +42,7 @@ const SearchBox = ({ refine, currentRefinement }: SearchBoxProvided) => {
     }
   }, [timer])
 
-  const onChange = (event: ChangeEvent) => {
-    const { value } = event.target
+  const onChange = (value: string) => {
     setSearch(value)
 
     if (timer) clearTimeout(timer)
@@ -58,10 +56,17 @@ const SearchBox = ({ refine, currentRefinement }: SearchBoxProvided) => {
     }
   }
 
+  const onKeyDown = (event: KeyboardEvent) => {
+    if (event.key === 'Enter') {
+      refine(search)
+    }
+  }
+
   return (
     <InputBase
       value={search}
-      onChange={onChange}
+      onChange={(e) => onChange(e.target.value)}
+      onKeyDown={onKeyDown}
       placeholder='Search…'
       classes={{
         root: classes.inputRoot,

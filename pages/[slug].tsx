@@ -32,7 +32,7 @@ const AuraPage = () => {
   }
 
   return (
-    <Layout>
+    <Layout title={aura.name}>
       <AuraComponent aura={aura} />
     </Layout>
   )

@@ -17,7 +17,7 @@ client = Typesense::Client.new(
 )
 
 res = client.collections['auras'].documents.search(
-  q: '',
-  query_by: 'name,categories',
+  q: 'Paladin',
+  query_by: 'name,categoryNames',
+  per_page: 50,
 )
-pp res;1

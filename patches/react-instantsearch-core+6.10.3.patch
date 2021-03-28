@@ -1,0 +1,25 @@
+diff --git a/node_modules/react-instantsearch-core/dist/es/core/createConnector.js b/node_modules/react-instantsearch-core/dist/es/core/createConnector.js
+index 7896578..252bd7f 100644
+--- a/node_modules/react-instantsearch-core/dist/es/core/createConnector.js
++++ b/node_modules/react-instantsearch-core/dist/es/core/createConnector.js
+@@ -160,13 +160,13 @@ export function createConnectorWithoutContext(connectorDesc) {
+           if (this.unregisterWidget) {
+             this.unregisterWidget();
+ 
+-            if (typeof connectorDesc.cleanUp === 'function') {
+-              var nextState = connectorDesc.cleanUp.call(this, this.props, this.props.contextValue.store.getState().widgets);
+-              this.props.contextValue.store.setState(_objectSpread({}, this.props.contextValue.store.getState(), {
+-                widgets: nextState
+-              }));
+-              this.props.contextValue.onSearchStateChange(removeEmptyKey(nextState));
+-            }
++            // if (typeof connectorDesc.cleanUp === 'function') {
++            //   var nextState = connectorDesc.cleanUp.call(this, this.props, this.props.contextValue.store.getState().widgets);
++            //   this.props.contextValue.store.setState(_objectSpread({}, this.props.contextValue.store.getState(), {
++            //     widgets: nextState
++            //   }));
++            //   this.props.contextValue.onSearchStateChange(removeEmptyKey(nextState));
++            // }
+           }
+         }
+       }, {

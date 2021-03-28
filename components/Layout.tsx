@@ -25,26 +25,12 @@ interface Props {
 const Layout = ({ children, title }: Props) => {
   const classes = useStyles()
 
-  const [searchState, onSearchStateChange] = useSearchState()
-
   return (
     <>
       <Head>
         <title>{title || 'auras.gg'}</title>
       </Head>
-      <InstantSearch
-        indexName='auras'
-        searchClient={searchClient}
-        searchState={searchState}
-        onSearchStateChange={onSearchStateChange}
-        createURL={createURL}
-      >
-        <Header />
-        <Toolbar />
-        <Container className={classes.main} component='main'>
-          {children}
-        </Container>
-      </InstantSearch>
+      {children}
     </>
   )
 }

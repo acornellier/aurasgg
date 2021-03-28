@@ -5,7 +5,7 @@ import Layout from 'components/Layout'
 
 const SearchPage = () => {
   return (
-    <Layout>
+    <Layout title='Search'>
       <SearchDrawer />
       <InfiniteHits />
     </Layout>
