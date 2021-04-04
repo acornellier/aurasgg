@@ -16,6 +16,7 @@ import {
 import NextLink from 'next/link'
 import SearchBox from 'components/SearchBox'
 import { useToggleTheme } from 'components/ThemeProvider'
+import HeaderMenu from 'components/HeaderMenu'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -72,6 +73,7 @@ const Header = () => {
             <Hidden xsDown>auras.gg</Hidden>
           </Button>
         </NextLink>
+        <HeaderMenu />
         <div className={classes.search}>
           <div className={classes.searchIcon}>
             <SearchIcon />
