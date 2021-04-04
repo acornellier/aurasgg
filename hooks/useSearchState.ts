@@ -15,8 +15,10 @@ const searchStateToUrl = (state: any) =>
   state ? `/search${createURL(state)}` : ''
 
 const urlToSearchState = (path: string) => {
+  if (typeof window === 'undefined') return null
+
   const start = path.indexOf(searchRouteWithQuery)
-  if (start === -1) return {}
+  if (start === -1) return null
   return qs.parse(path.slice(start + searchRouteWithQuery.length))
 }
 
@@ -24,11 +26,12 @@ export const useSearchState = () => {
   const router = useRouter()
 
   const [searchState, setSearchState] = useState(
-    urlToSearchState(router.asPath),
+    urlToSearchState(router.asPath) || {},
   )
 
   useEffect(() => {
-    setSearchState(urlToSearchState(router.asPath))
+    const newSearchState = urlToSearchState(router.asPath)
+    if (newSearchState !== null) setSearchState(newSearchState)
   }, [router.asPath])
 
   const [timer, setTimer] = useState<NodeJS.Timeout>()

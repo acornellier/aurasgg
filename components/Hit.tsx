@@ -60,6 +60,7 @@ const Hit = ({ hit }: { hit: Aura.SearchAura }) => {
                 <VisibilityIcon />
               </div>
             </div>
+            <div>{hit.dateModified}</div>
             <div>
               {categories.map((category: string) => (
                 <Chip

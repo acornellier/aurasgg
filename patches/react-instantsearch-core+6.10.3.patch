@@ -23,3 +23,16 @@ index 7896578..252bd7f 100644
            }
          }
        }, {
+diff --git a/node_modules/react-instantsearch-core/dist/es/core/createWidgetsManager.js b/node_modules/react-instantsearch-core/dist/es/core/createWidgetsManager.js
+index 72af1cb..e3745aa 100644
+--- a/node_modules/react-instantsearch-core/dist/es/core/createWidgetsManager.js
++++ b/node_modules/react-instantsearch-core/dist/es/core/createWidgetsManager.js
+@@ -23,7 +23,7 @@ export default function createWidgetsManager(onWidgetsUpdate) {
+       scheduleUpdate();
+       return function unregisterWidget() {
+         widgets.splice(widgets.indexOf(widget), 1);
+-        scheduleUpdate();
++        // scheduleUpdate();
+       };
+     },
+     update: scheduleUpdate,

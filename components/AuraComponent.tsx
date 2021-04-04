@@ -1,10 +1,17 @@
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
-import { Typography } from '@material-ui/core'
+import { Container, Typography } from '@material-ui/core'
 import React, { useMemo } from 'react'
 import XBBCode from 'utils/xbbcode'
 import { GalleryItem } from 'components/GalleryItem'
 
-const useStyles = makeStyles((theme: Theme) => createStyles({}))
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    embed: {
+      width: '100%',
+      height: '795px',
+    },
+  }),
+)
 
 interface Props {
   aura: Aura.Aura
@@ -23,16 +30,20 @@ export const AuraComponent = ({ aura }: Props) => {
   }, [aura])
 
   return (
-    <div>
+    <Container>
       <Typography variant='h6'>{aura.name}</Typography>
       {aura.gallery.map((media) => (
         <GalleryItem key={media.src} media={media} />
       ))}
-      <div
-        className='bbcode'
-        dangerouslySetInnerHTML={{ __html: description }}
+      <iframe
+        src={`https://wago.io/${aura.id}/embed.html`}
+        className={classes.embed}
       />
-    </div>
+      {/*<div*/}
+      {/*  className='bbcode'*/}
+      {/*  dangerouslySetInnerHTML={{ __html: description }}*/}
+      {/*/>*/}
+    </Container>
   )
 }
 

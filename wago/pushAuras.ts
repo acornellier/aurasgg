@@ -18,7 +18,7 @@ export const typesenseClient = new Typesense.Client({
 })
 
 const redisClient = redis.createClient()
-const hgetallAsync = promisify(redisClient.hgetall).bind(redisClient)
+const hvalsAsync = promisify(redisClient.hvals).bind(redisClient)
 const hsetAsync = promisify(redisClient.hset).bind(redisClient)
 
 const main = async () => {
@@ -39,12 +39,12 @@ const main = async () => {
     })
   }
 
-  const wagos: WagoAura[] = Object.values(
-    await hgetallAsync('auras'),
-  ).map((wago) => JSON.parse(wago))
+  const wagos: WagoAura[] = (await hvalsAsync('auras')).map((wago) =>
+    JSON.parse(wago),
+  )
 
-  const migrated: Aura.Aura[] = Object.values(
-    (await hgetallAsync('auras_migrated')) || {},
+  const migrated: Aura.Aura[] = (
+    (await hvalsAsync('auras_migrated')) || []
   ).map((wago) => JSON.parse(wago))
 
   const toUpload = wagos.filter(

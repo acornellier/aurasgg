@@ -13,3 +13,7 @@ const SearchPage = () => {
 }
 
 export default SearchPage
+
+export async function getServerSideProps() {
+  return { props: {} }
+}

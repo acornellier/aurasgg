@@ -29,7 +29,7 @@ const ThemeProvider = ({ children }: ThemeProviderProps) => {
 
   const toggleTheme = useCallback(() => {
     const newTheme = palette === 'light' ? 'dark' : 'light'
-    setCookie(themeCookie, newTheme)
+    setCookie(themeCookie, newTheme, { sameSite: 'none' })
     setPalette(newTheme)
   }, [palette, setPalette, setCookie])
 

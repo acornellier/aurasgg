@@ -10,10 +10,10 @@ def make_endpoints(path)
   (1..10).map { |n| "https://data#{n}.wago.io#{path}" }
 end
 
-# search_endpoints = make_endpoints('/search?sort=date&page=%s"')
-search_endpoints = make_endpoints('/search?q=Type:WeakAura&cc=1&page=%s')
-end_page = 500
-give_up = false
+search_endpoints = make_endpoints('/search?sort=date&page=%s"')
+# search_endpoints = make_endpoints('/search?q=Type:WeakAura&cc=1&page=%s')
+end_page = 499
+give_up = true
 
 aura_endpoints = make_endpoints('/lookup/wago?id=%s')
 code_endpoints = make_endpoints('%s')

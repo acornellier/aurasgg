@@ -1,10 +1,5 @@
-import React, { ReactNode, useReducer } from 'react'
+import React, { ReactNode } from 'react'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
-import { Container, CssBaseline, Toolbar } from '@material-ui/core'
-import Header from 'components/Header'
-import { InstantSearch } from 'react-instantsearch-dom'
-import searchClient from 'utils/searchClient'
-import { createURL, useSearchState } from 'hooks/useSearchState'
 import Head from 'next/head'
 
 const useStyles = makeStyles((theme: Theme) =>
