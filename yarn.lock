@@ -2213,7 +2213,7 @@ hash.js@^1.0.0, hash.js@^1.0.3:
     inherits "^2.0.3"
     minimalistic-assert "^1.0.1"
 
-he@1.2.0, he@^1.2.0:
+he@1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/he/-/he-1.2.0.tgz#84ae65fa7eafb165fddb61566ae14baf05664f0f"
   integrity sha512-F/1DnUGPopORZi0ni+CvrCgHQ5FyEAHRLSApuYWMmrbSwoN2Mn/7k+Gl38gJnR7yyDZk6WLXwiGod1JOWNDKGw==
@@ -4352,12 +4352,11 @@ typescript@4.2:
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.2.3.tgz#39062d8019912d43726298f09493d598048c1ce3"
   integrity sha512-qOcYwxaByStAWrBf4x0fibwZvMRG+r4cQoTjbPtUlrWjBHbmCAww1i448U0GJ+3cNNEtebDteo/cHOR3xJ4wEw==
 
-typesense-instantsearch-adapter@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/typesense-instantsearch-adapter/-/typesense-instantsearch-adapter-1.0.0.tgz#b5550f68a96805f405946d3306e8b6778a6a41f5"
-  integrity sha512-SkPDi/+XMnMXF0cCMpp+s9kDjLCsXRchVAvBCSJt9Dah7FxBdKSnS7WlGzbq3/BPDBrte0pjVtXbyK5jzmlMWw==
+typesense-instantsearch-adapter@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/typesense-instantsearch-adapter/-/typesense-instantsearch-adapter-1.1.1.tgz#cd8343e33ec99d49809e639cb78bf2569f17d329"
+  integrity sha512-A1p4ay8FRv6zZ6uz8O+LKpTo1uwGq3JKW738CdxJp8pELMkz8Ajms4mdAdNWrYWQyWC1LbwJj9vez4HlpvKE7Q==
   dependencies:
-    he "^1.2.0"
     typesense "^0.11.1"
 
 typesense@^0.11.1:
