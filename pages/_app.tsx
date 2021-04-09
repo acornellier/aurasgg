@@ -10,7 +10,7 @@ import ThemeProvider from 'components/ThemeProvider'
 import { InstantSearch } from 'react-instantsearch-dom'
 import searchClient from 'utils/searchClient'
 import { createURL, useSearchState } from 'hooks/useSearchState'
-import Header from 'components/Header'
+import Header from 'components/Header/Header'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 
 const useStyles = makeStyles((theme: Theme) =>

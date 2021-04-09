@@ -13,8 +13,10 @@
     "postinstall": "patch-package"
   },
   "husky": {
-    "pre-commit": "lint-staged",
-    "pre-push": "yarn tsc"
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "pre-push": "tsc"
+    }
   },
   "lint-staged": {
     "*.{js,ts,tsx}": "eslint --fix --quiet",

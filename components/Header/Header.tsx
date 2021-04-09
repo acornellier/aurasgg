@@ -14,9 +14,9 @@ import {
   Widgets as WidgetsIcon,
 } from '@material-ui/icons'
 import NextLink from 'next/link'
-import SearchBox from 'components/SearchBox'
+import SearchBox from 'components/Header/SearchBox'
 import { useToggleTheme } from 'components/ThemeProvider'
-import HeaderMenu from 'components/HeaderMenu'
+import HeaderMenus from 'components/Header/HeaderMenus'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -28,6 +28,9 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     button: {
       margin: theme.spacing(1),
+    },
+    menu: {
+      display: 'flex',
     },
     search: {
       position: 'relative',
@@ -73,7 +76,9 @@ const Header = () => {
             <Hidden xsDown>auras.gg</Hidden>
           </Button>
         </NextLink>
-        <HeaderMenu />
+        <div className={classes.menu}>
+          <HeaderMenus />
+        </div>
         <div className={classes.search}>
           <div className={classes.searchIcon}>
             <SearchIcon />
