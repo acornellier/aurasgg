@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState } from 'react'
+import { useRouter } from 'next/router'
 
 interface ThemeProviderProps {
   children: React.ReactNode
@@ -10,7 +11,23 @@ const ThemeDispatchContext = createContext<
 >([undefined, () => {}])
 
 const SelectedAuraProvider = ({ children }: ThemeProviderProps) => {
-  const [selectedAura, setSelectedAura] = useState<Aura.SearchAura>()
+  const router = useRouter()
+  const [selectedAura, setAura] = useState<Aura.SearchAura>()
+  const [backupPath, setBackupPath] = useState<string>()
+
+  console.log(router)
+
+  const setSelectedAura = (aura: Aura.SearchAura | undefined) => {
+    console.log('setSelectedAura', aura)
+    if (aura) {
+      history.pushState({}, '', `/${aura.id}`)
+      setBackupPath(router.asPath)
+    } else {
+      history.pushState({}, '', backupPath)
+      setBackupPath(undefined)
+    }
+    setAura(aura)
+  }
 
   return (
     <ThemeDispatchContext.Provider value={[selectedAura, setSelectedAura]}>

@@ -13,6 +13,7 @@ import { GalleryItem } from 'components/GalleryItem'
 import React, { useState } from 'react'
 import CopyCode from 'components/CopyCode'
 import { useSelectedAura } from 'components/Search/SelectedAuraProvider'
+import { useRouter } from 'next/router'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -63,53 +64,51 @@ const Hit = ({ hit: aura }: { hit: Aura.SearchAura }) => {
 
   return (
     <Card>
-      {/*<NextLink href={`/${aura.id}`}>*/}
-      {/*  <a>*/}
-      <CardActionArea
-        className={classes.actionArea}
-        disableRipple
-        onClick={selectAura}
-      >
-        {preview && (
-          <CardMedia className={classes.media}>
-            <GalleryItem media={preview} />
-          </CardMedia>
-        )}
-        <CardContent>
-          <div className={classes.title}>
-            <Typography variant='h6'>{aura.name}</Typography>
-            <div className={classes.viewCount}>
-              {aura.views}
-              <VisibilityIcon />
+      <a>
+        <CardActionArea
+          className={classes.actionArea}
+          disableRipple
+          onClick={selectAura}
+        >
+          {preview && (
+            <CardMedia className={classes.media}>
+              <GalleryItem media={preview} />
+            </CardMedia>
+          )}
+          <CardContent>
+            <div className={classes.title}>
+              <Typography variant='h6'>{aura.name}</Typography>
+              <div className={classes.viewCount}>
+                {aura.views}
+                <VisibilityIcon />
+              </div>
             </div>
-          </div>
-          <div>{aura.dateModified}</div>
-          <div className={classes.bottom}>
-            <div>
-              {categories.map((category: string) => (
-                <Chip
-                  key={category}
-                  className={classes.category}
-                  label={category}
-                />
-              ))}
-              {aura.categoryNames.length > 5 && !expandedCategories && (
-                <Chip
-                  className={classes.category}
-                  label='...'
-                  onClick={(e) => {
-                    e.stopPropagation()
-                    setExpandedCategories(!expandedCategories)
-                  }}
-                />
-              )}
+            <div>{aura.dateModified}</div>
+            <div className={classes.bottom}>
+              <div>
+                {categories.map((category: string) => (
+                  <Chip
+                    key={category}
+                    className={classes.category}
+                    label={category}
+                  />
+                ))}
+                {aura.categoryNames.length > 5 && !expandedCategories && (
+                  <Chip
+                    className={classes.category}
+                    label='...'
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      setExpandedCategories(!expandedCategories)
+                    }}
+                  />
+                )}
+              </div>
+              <CopyCode iconOnly code={aura.code} />
             </div>
-            <CopyCode iconOnly code={aura.code} />
-          </div>
-        </CardContent>
-      </CardActionArea>
-      {/*</a>*/}
-      {/*</NextLink>*/}
+          </CardContent>
+        </CardActionArea>
+      </a>
     </Card>
   )
 }
