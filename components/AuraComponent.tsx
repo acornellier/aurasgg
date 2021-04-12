@@ -30,6 +30,7 @@ interface Props {
 }
 
 export const AuraComponent = ({ aura }: Props) => {
+  console.log(aura)
   const classes = useStyles()
 
   const description = useMemo(() => {

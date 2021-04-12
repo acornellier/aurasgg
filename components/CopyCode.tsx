@@ -28,6 +28,7 @@ const CopyCode = ({ code, iconOnly }: Props) => {
   const [copied, setCopied] = useState(false)
 
   const copyCode = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation()
     e.preventDefault()
     await navigator.clipboard.writeText(code)
     setCopied(true)

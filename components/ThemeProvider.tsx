@@ -17,7 +17,7 @@ interface ThemeProviderProps {
   children: React.ReactNode
 }
 
-const ThemeDispatchContext = createContext<any>(null)
+const ThemeDispatchContext = createContext<(() => void) | undefined>(undefined)
 const themeCookie = 'theme'
 
 const ThemeProvider = ({ children }: ThemeProviderProps) => {

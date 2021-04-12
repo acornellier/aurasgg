@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { connectInfiniteHits } from 'react-instantsearch-dom'
-import Hit from './Hit'
+import Hit from 'components/Search/Hit'
 import { InfiniteHitsProvided } from 'react-instantsearch-core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { CircularProgress } from '@material-ui/core'
