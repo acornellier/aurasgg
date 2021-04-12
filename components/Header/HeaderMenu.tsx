@@ -35,14 +35,16 @@ const HeaderMenu = ({ title, link, items }: Props) => {
   return (
     <div onMouseLeave={() => setOpen(false)}>
       <NextLink href={link}>
-        <Button
-          ref={anchorRef}
-          aria-controls={open ? 'menu-list-grow' : undefined}
-          aria-haspopup='true'
-          onMouseOver={() => setOpen(true)}
-        >
-          {title}
-        </Button>
+        <a>
+          <Button
+            ref={anchorRef}
+            aria-controls={open ? 'menu-list-grow' : undefined}
+            aria-haspopup='true'
+            onMouseOver={() => setOpen(true)}
+          >
+            {title}
+          </Button>
+        </a>
       </NextLink>
       <Popper
         open={open}
@@ -63,7 +65,9 @@ const HeaderMenu = ({ title, link, items }: Props) => {
               <MenuList autoFocusItem={open}>
                 {items.map(({ label, href }) => (
                   <NextLink key={label} href={href}>
-                    <MenuItem onClick={handleClose}>{label}</MenuItem>
+                    <a>
+                      <MenuItem onClick={handleClose}>{label}</MenuItem>
+                    </a>
                   </NextLink>
                 ))}
               </MenuList>

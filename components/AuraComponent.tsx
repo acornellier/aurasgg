@@ -3,15 +3,24 @@ import { Container, Typography } from '@material-ui/core'
 import React, { useMemo } from 'react'
 import XBBCode from 'utils/xbbcode'
 import { GalleryItem } from 'components/GalleryItem'
+import CopyCode from 'components/CopyCode'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
+    title: {
+      display: 'flex',
+      justifyContent: 'space-between',
+    },
     embed: {
       width: '100%',
       height: '795px',
     },
     gallery: {
       display: 'flex',
+      alignItems: 'center',
+    },
+    galleryItem: {
+      maxWidth: 'fit-content',
     },
   }),
 )
@@ -34,20 +43,25 @@ export const AuraComponent = ({ aura }: Props) => {
 
   return (
     <Container>
-      <Typography variant='h6'>{aura.name}</Typography>
+      <div className={classes.title}>
+        <Typography variant='h6'>{aura.name}</Typography>
+        <CopyCode code={aura.code} />
+      </div>
       <div className={classes.gallery}>
         {aura.gallery.map((media) => (
-          <GalleryItem key={media.src} media={media} />
+          <div key={media.src} className={classes.galleryItem}>
+            <GalleryItem media={media} />
+          </div>
         ))}
       </div>
-      <iframe
-        src={`https://wago.io/${aura.id}/embed.html`}
-        className={classes.embed}
-      />
-      {/*<div*/}
-      {/*  className='bbcode'*/}
-      {/*  dangerouslySetInnerHTML={{ __html: description }}*/}
+      {/*<iframe*/}
+      {/*  src={`https://wago.io/${aura.id}/embed.html`}*/}
+      {/*  className={classes.embed}*/}
       {/*/>*/}
+      <div
+        className='bbcode'
+        dangerouslySetInnerHTML={{ __html: description }}
+      />
     </Container>
   )
 }
