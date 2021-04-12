@@ -26,10 +26,6 @@ const useStyles = makeStyles((theme: Theme) =>
 
 type KeyboardEvent = React.KeyboardEvent<HTMLTextAreaElement | HTMLInputElement>
 
-const differentRefinement = (before: string, after: string) => {
-  return before.trim().toLowerCase() !== after.trim().toLowerCase()
-}
-
 const SearchBox = ({ refine, currentRefinement }: SearchBoxProvided) => {
   const classes = useStyles()
 
@@ -42,24 +38,27 @@ const SearchBox = ({ refine, currentRefinement }: SearchBoxProvided) => {
     }
   }, [timer])
 
+  const differentRefinement = (after: string) => {
+    return currentRefinement.trim().toLowerCase() !== after.trim().toLowerCase()
+  }
+
+  const performSearch = () => {
+    if (timer) clearTimeout(timer)
+    if (differentRefinement(search)) refine(search)
+  }
+
   const onChange = (value: string) => {
     setSearch(value)
 
     if (timer) clearTimeout(timer)
 
-    if (differentRefinement(currentRefinement, value)) {
-      setTimer(
-        setTimeout(() => {
-          refine(value)
-        }, 100),
-      )
+    if (differentRefinement(value)) {
+      setTimer(setTimeout(() => performSearch(), 100))
     }
   }
 
   const onKeyDown = (event: KeyboardEvent) => {
-    if (event.key === 'Enter') {
-      refine(search)
-    }
+    if (event.key === 'Enter') performSearch()
   }
 
   return (

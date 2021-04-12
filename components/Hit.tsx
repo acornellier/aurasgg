@@ -14,7 +14,13 @@ import { useState } from 'react'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    media: {},
+    actionArea: {
+      height: '100%',
+    },
+    media: {
+      display: 'flex',
+      justifyContent: 'center',
+    },
     title: {
       display: 'flex',
       justifyContent: 'space-between',
@@ -46,42 +52,44 @@ const Hit = ({ hit }: { hit: Aura.SearchAura }) => {
   return (
     <Card>
       <NextLink href={`/${hit.id}`}>
-        <CardActionArea>
-          {preview && (
-            <CardMedia className={classes.media}>
-              <GalleryItem media={preview} />
-            </CardMedia>
-          )}
-          <CardContent>
-            <div className={classes.title}>
-              <Typography variant='h6'>{hit.name}</Typography>
-              <div className={classes.viewCount}>
-                {hit.views}
-                <VisibilityIcon />
+        <a>
+          <CardActionArea className={classes.actionArea}>
+            {preview && (
+              <CardMedia className={classes.media}>
+                <GalleryItem media={preview} />
+              </CardMedia>
+            )}
+            <CardContent>
+              <div className={classes.title}>
+                <Typography variant='h6'>{hit.name}</Typography>
+                <div className={classes.viewCount}>
+                  {hit.views}
+                  <VisibilityIcon />
+                </div>
               </div>
-            </div>
-            <div>{hit.dateModified}</div>
-            <div>
-              {categories.map((category: string) => (
-                <Chip
-                  key={category}
-                  className={classes.category}
-                  label={category}
-                />
-              ))}
-              {hit.categoryNames.length > 5 && !expandedCategories && (
-                <Chip
-                  className={classes.category}
-                  label='...'
-                  onClick={(e) => {
-                    e.stopPropagation()
-                    setExpandedCategories(!expandedCategories)
-                  }}
-                />
-              )}
-            </div>
-          </CardContent>
-        </CardActionArea>
+              <div>{hit.dateModified}</div>
+              <div>
+                {categories.map((category: string) => (
+                  <Chip
+                    key={category}
+                    className={classes.category}
+                    label={category}
+                  />
+                ))}
+                {hit.categoryNames.length > 5 && !expandedCategories && (
+                  <Chip
+                    className={classes.category}
+                    label='...'
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      setExpandedCategories(!expandedCategories)
+                    }}
+                  />
+                )}
+              </div>
+            </CardContent>
+          </CardActionArea>
+        </a>
       </NextLink>
     </Card>
   )

@@ -1,7 +1,12 @@
 import React from 'react'
 import Drawer from '@material-ui/core/Drawer'
 import Hidden from '@material-ui/core/Hidden'
-import { NumericMenu, RefinementList, SortBy } from 'react-instantsearch-dom'
+import {
+  Menu,
+  NumericMenu,
+  RefinementList,
+  SortBy,
+} from 'react-instantsearch-dom'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { Container, Toolbar } from '@material-ui/core'
 
@@ -43,14 +48,14 @@ const DrawerContainer = () => {
         ]}
         defaultRefinement='auras'
       />
-      <h2>Views</h2>
+      <h2>Expansion</h2>
       <NumericMenu
-        attribute='views'
-        items={[{ label: '> 100 views', start: 100 }]}
-        defaultRefinement='100:'
+        attribute='epochModified'
+        items={[{ label: 'Updated for Shadowlands', start: 1602547200000 }]}
+        defaultRefinement='1602547200000:'
       />
       <h2>Type</h2>
-      <RefinementList attribute='type' />
+      <Menu attribute='type' />
       <h2>Category</h2>
       <RefinementList attribute='categoryNames' />
     </Container>

@@ -13,6 +13,7 @@ const typesenseAdapter = new TypesenseInstantSearchAdapter({
     ],
   },
   additionalSearchParameters: {
+    perPage: 30,
     queryBy: 'name,categoryNames',
   },
 })

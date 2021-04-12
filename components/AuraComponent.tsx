@@ -10,6 +10,9 @@ const useStyles = makeStyles((theme: Theme) =>
       width: '100%',
       height: '795px',
     },
+    gallery: {
+      display: 'flex',
+    },
   }),
 )
 
@@ -32,9 +35,11 @@ export const AuraComponent = ({ aura }: Props) => {
   return (
     <Container>
       <Typography variant='h6'>{aura.name}</Typography>
-      {aura.gallery.map((media) => (
-        <GalleryItem key={media.src} media={media} />
-      ))}
+      <div className={classes.gallery}>
+        {aura.gallery.map((media) => (
+          <GalleryItem key={media.src} media={media} />
+        ))}
+      </div>
       <iframe
         src={`https://wago.io/${aura.id}/embed.html`}
         className={classes.embed}

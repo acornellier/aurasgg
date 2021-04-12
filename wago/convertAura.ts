@@ -147,6 +147,7 @@ type WagoAuraType =
   | 'PLATER'
   | 'VUHDO'
   | 'CLASSIC-WEAKAURA'
+  | 'TBC-WEAKAURA'
   | 'TOTALRP3'
 
 class UnsupportedAura extends Error {
@@ -168,6 +169,8 @@ const convertType = (type: WagoAuraType): Aura.Type => {
       return 'mdt'
     case 'CLASSIC-WEAKAURA':
       return 'classic-weakaura'
+    case 'TBC-WEAKAURA':
+      return 'tbc-weakaura'
     case 'VUHDO':
       return 'vuhdo'
     case 'TOTALRP3':

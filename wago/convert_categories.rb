@@ -83,7 +83,7 @@ def convert(category)
 
   return convert_raid(category) if category['id'].start_with?('raid')
   return convert_mdt_dungeon(category) if category['MDT'] && category['cls'] == 'dungeon'
-  return convert_dungeon(category) if category['cls'] == 'dungeon'
+  return convert_dungeon(category) if category['cls'].start_with?('dungeon')
 
   return convert_mdt_speed(category) if category['cls'] == 'speed'
   return convert_mdt_week(category) if category['slug'].include?('week')

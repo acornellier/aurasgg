@@ -5,6 +5,7 @@ declare namespace Aura {
     | 'elvui'
     | 'mdt'
     | 'classic-weakaura'
+    | 'tbc-weakaura'
     | 'vuhdo'
     | 'totalrp3'
 
