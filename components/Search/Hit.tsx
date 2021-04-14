@@ -1,23 +1,21 @@
 import {
   Card,
-  CardActionArea,
   CardContent,
   CardMedia,
   Chip,
   Typography,
 } from '@material-ui/core'
-import NextLink from 'next/link'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { Visibility as VisibilityIcon } from '@material-ui/icons'
 import { GalleryItem } from 'components/GalleryItem'
 import React, { useState } from 'react'
 import CopyCode from 'components/CopyCode'
 import { useSelectedAura } from 'components/Search/SelectedAuraProvider'
-import { useRouter } from 'next/router'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     actionArea: {
+      cursor: 'pointer',
       height: '100%',
     },
     media: {
@@ -39,8 +37,14 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'flex',
       justifyContent: 'space-between',
     },
+    categories: {
+      display: 'flex',
+      gap: theme.spacing(0.5),
+      flexWrap: 'wrap',
+    },
     category: {
       cursor: 'inherit',
+      borderRadius: 0,
     },
   }),
 )
@@ -65,11 +69,7 @@ const Hit = ({ hit: aura }: { hit: Aura.SearchAura }) => {
   return (
     <Card>
       <a>
-        <CardActionArea
-          className={classes.actionArea}
-          disableRipple
-          onClick={selectAura}
-        >
+        <div className={classes.actionArea} onClick={selectAura}>
           {preview && (
             <CardMedia className={classes.media}>
               <GalleryItem media={preview} />
@@ -85,7 +85,7 @@ const Hit = ({ hit: aura }: { hit: Aura.SearchAura }) => {
             </div>
             <div>{aura.dateModified}</div>
             <div className={classes.bottom}>
-              <div>
+              <div className={classes.categories}>
                 {categories.map((category: string) => (
                   <Chip
                     key={category}
@@ -107,7 +107,7 @@ const Hit = ({ hit: aura }: { hit: Aura.SearchAura }) => {
               <CopyCode iconOnly code={aura.code} />
             </div>
           </CardContent>
-        </CardActionArea>
+        </div>
       </a>
     </Card>
   )

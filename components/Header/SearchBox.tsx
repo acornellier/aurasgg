@@ -42,9 +42,9 @@ const SearchBox = ({ refine, currentRefinement }: SearchBoxProvided) => {
     return currentRefinement.trim().toLowerCase() !== after.trim().toLowerCase()
   }
 
-  const performSearch = () => {
+  const performSearch = (value = search) => {
     if (timer) clearTimeout(timer)
-    if (differentRefinement(search)) refine(search)
+    if (differentRefinement(value)) refine(value)
   }
 
   const onChange = (value: string) => {
@@ -53,7 +53,7 @@ const SearchBox = ({ refine, currentRefinement }: SearchBoxProvided) => {
     if (timer) clearTimeout(timer)
 
     if (differentRefinement(value)) {
-      setTimer(setTimeout(() => performSearch(), 100))
+      setTimer(setTimeout(() => performSearch(value), 100))
     }
   }
 
