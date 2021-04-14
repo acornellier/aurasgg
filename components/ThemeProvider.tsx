@@ -12,6 +12,7 @@ import {
 } from '@material-ui/core/styles'
 import { useCookies } from 'react-cookie'
 import { PaletteType } from '@material-ui/core'
+import { Overrides } from '@material-ui/core/styles/overrides'
 
 interface ThemeProviderProps {
   children: React.ReactNode
@@ -19,6 +20,14 @@ interface ThemeProviderProps {
 
 const ThemeDispatchContext = createContext<(() => void) | undefined>(undefined)
 const themeCookie = 'theme'
+
+const themeOverrides: Overrides = {
+  MuiDialog: {
+    container: {
+      alignItems: 'baseline',
+    },
+  },
+}
 
 const ThemeProvider = ({ children }: ThemeProviderProps) => {
   const [cookies, setCookie] = useCookies([themeCookie])
@@ -28,21 +37,16 @@ const ThemeProvider = ({ children }: ThemeProviderProps) => {
   )
 
   const toggleTheme = useCallback(() => {
-    const newTheme = palette === 'light' ? 'dark' : 'light'
-    setCookie(themeCookie, newTheme, { sameSite: 'none' })
-    setPalette(newTheme)
+    const newPalette = palette === 'light' ? 'dark' : 'light'
+    console.log(newPalette)
+    setCookie(themeCookie, newPalette, { sameSite: 'lax' })
+    setPalette(newPalette)
   }, [palette, setPalette, setCookie])
 
   const theme = useMemo(() => {
     return createMuiTheme({
       palette: { type: palette },
-      overrides: {
-        MuiDialog: {
-          container: {
-            alignItems: 'baseline',
-          },
-        },
-      },
+      overrides: themeOverrides,
     })
   }, [palette])
 

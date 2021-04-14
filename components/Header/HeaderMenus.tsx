@@ -3,7 +3,7 @@ import React from 'react'
 import { classes, dungeons } from 'utils/warcraft'
 
 const makeLink = (type: string, category?: string) => {
-  let link = `/search?refinementList[type][0]=${type}`
+  let link = `/search?menu[type]=${type}`
   if (category) link += `&refinementList[categoryNames][0]=${category}`
   return link
 }

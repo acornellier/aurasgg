@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/router'
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -31,25 +31,26 @@ export const useSearchState = () => {
 
   useEffect(() => {
     const newSearchState = urlToSearchState(router.asPath)
+    console.log('useEffect', router.asPath, newSearchState)
     if (newSearchState !== null) setSearchState(newSearchState)
   }, [router.asPath])
 
-  const [timer, setTimer] = useState<NodeJS.Timeout>()
+  const timer = useRef<NodeJS.Timeout>()
 
   const onSearchStateChange = useCallback(
-    (newSearchState: any) => {
-      if (timer) clearTimeout(timer)
+    (newSearchState: Record<string, unknown>) => {
+      if (timer.current) clearTimeout(timer.current)
 
-      setTimer(
-        setTimeout(() => {
+      timer.current = setTimeout(() => {
+        if (Object.entries(newSearchState).length !== 0) {
           const href = searchStateToUrl(newSearchState)
           router.push(href, href, { shallow: true })
-        }, debounceTime),
-      )
+        }
+      }, debounceTime)
 
       setSearchState(newSearchState)
     },
-    [timer, setSearchState, setTimer, router],
+    [timer, setSearchState, router],
   )
 
   return [searchState, onSearchStateChange] as const

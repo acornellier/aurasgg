@@ -1,5 +1,6 @@
 import {
   Card,
+  CardActionArea,
   CardContent,
   CardMedia,
   Chip,
@@ -9,7 +10,6 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { Visibility as VisibilityIcon } from '@material-ui/icons'
 import { GalleryItem } from 'components/GalleryItem'
 import React, { useState } from 'react'
-import CopyCode from 'components/CopyCode'
 import { useSelectedAura } from 'components/Search/SelectedAuraProvider'
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -68,47 +68,44 @@ const Hit = ({ hit: aura }: { hit: Aura.SearchAura }) => {
 
   return (
     <Card>
-      <a>
-        <div className={classes.actionArea} onClick={selectAura}>
-          {preview && (
-            <CardMedia className={classes.media}>
-              <GalleryItem media={preview} />
-            </CardMedia>
-          )}
-          <CardContent>
-            <div className={classes.title}>
-              <Typography variant='h6'>{aura.name}</Typography>
-              <div className={classes.viewCount}>
-                {aura.views}
-                <VisibilityIcon />
-              </div>
+      <CardActionArea className={classes.actionArea} onClick={selectAura}>
+        {preview && (
+          <CardMedia className={classes.media}>
+            <GalleryItem media={preview} />
+          </CardMedia>
+        )}
+        <CardContent>
+          <div className={classes.title}>
+            <Typography variant='h6'>{aura.name}</Typography>
+            <div className={classes.viewCount}>
+              {aura.views}
+              <VisibilityIcon />
             </div>
-            <div>Modified {new Date(aura.epochModified).toDateString()}</div>
-            <div className={classes.bottom}>
-              <div className={classes.categories}>
-                {categories.map((category: string) => (
-                  <Chip
-                    key={category}
-                    className={classes.category}
-                    label={category}
-                  />
-                ))}
-                {aura.categoryNames.length > 5 && !expandedCategories && (
-                  <Chip
-                    className={classes.category}
-                    label='...'
-                    onClick={(e) => {
-                      e.stopPropagation()
-                      setExpandedCategories(!expandedCategories)
-                    }}
-                  />
-                )}
-              </div>
-              {/*<CopyCode iconOnly code={aura.code} />*/}
+          </div>
+          <div>Modified {new Date(aura.epochModified).toDateString()}</div>
+          <div className={classes.bottom}>
+            <div className={classes.categories}>
+              {categories.map((category: string) => (
+                <Chip
+                  key={category}
+                  className={classes.category}
+                  label={category}
+                />
+              ))}
+              {aura.categoryNames.length > 5 && !expandedCategories && (
+                <Chip
+                  className={classes.category}
+                  label='...'
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    setExpandedCategories(!expandedCategories)
+                  }}
+                />
+              )}
             </div>
-          </CardContent>
-        </div>
-      </a>
+          </div>
+        </CardContent>
+      </CardActionArea>
     </Card>
   )
 }

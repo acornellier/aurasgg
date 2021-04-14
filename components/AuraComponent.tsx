@@ -58,10 +58,13 @@ export const AuraComponent = ({ aura }: Props) => {
           </div>
         ))}
       </div>
-      {/*<iframe*/}
-      {/*  src={`https://wago.io/${aura.id}/embed.html`}*/}
-      {/*  className={classes.embed}*/}
-      {/*/>*/}
+      {aura.wago && <a href={aura.wago.url}>Imported from wago.io</a>}
+      {aura.type === 'mdt' && (
+        <iframe
+          src={`https://wago.io/${aura.id}/embed.html`}
+          className={classes.embed}
+        />
+      )}
       <div
         className='bbcode'
         dangerouslySetInnerHTML={{ __html: description }}
