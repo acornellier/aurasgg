@@ -5,7 +5,7 @@ import Layout from 'components/Layout'
 import SelectedAuraProvider, {
   useSelectedAura,
 } from 'components/Search/SelectedAuraProvider'
-import AuraComponent from 'components/AuraComponent'
+import AuraDialog from 'components/AuraDialog'
 import { Dialog, DialogContent } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 
@@ -32,7 +32,7 @@ const SearchPageInner = () => {
         onClose={() => setSelectedAura?.(undefined)}
       >
         <DialogContent>
-          {selectedAura && <AuraComponent aura={selectedAura} />}
+          {selectedAura && <AuraDialog preview={selectedAura} />}
         </DialogContent>
       </Dialog>
     </>

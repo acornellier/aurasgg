@@ -15,10 +15,7 @@ const SelectedAuraProvider = ({ children }: ThemeProviderProps) => {
   const [selectedAura, setAura] = useState<Aura.SearchAura>()
   const [backupPath, setBackupPath] = useState<string>()
 
-  console.log(router)
-
   const setSelectedAura = (aura: Aura.SearchAura | undefined) => {
-    console.log('setSelectedAura', aura)
     if (aura) {
       history.pushState({}, '', `/${aura.id}`)
       setBackupPath(router.asPath)

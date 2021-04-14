@@ -6,7 +6,7 @@ const style = {
 export const GalleryItem = ({ media }: { media: Aura.Media }) => {
   const { type, src } = media
   if (type === 'video') {
-    return <video loop src={src} style={style} />
+    return <iframe src={src} style={style} />
   } else if (src.endsWith('.webm')) {
     return <video autoPlay loop src={src} style={style} />
   } else {

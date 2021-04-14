@@ -83,7 +83,7 @@ const Hit = ({ hit: aura }: { hit: Aura.SearchAura }) => {
                 <VisibilityIcon />
               </div>
             </div>
-            <div>{aura.dateModified}</div>
+            <div>Modified {new Date(aura.epochModified).toDateString()}</div>
             <div className={classes.bottom}>
               <div className={classes.categories}>
                 {categories.map((category: string) => (
@@ -104,7 +104,7 @@ const Hit = ({ hit: aura }: { hit: Aura.SearchAura }) => {
                   />
                 )}
               </div>
-              <CopyCode iconOnly code={aura.code} />
+              {/*<CopyCode iconOnly code={aura.code} />*/}
             </div>
           </CardContent>
         </div>

@@ -33,7 +33,7 @@ const InfiniteHits = ({
 }: InfiniteHitsProvided<Aura.SearchAura>) => {
   const classes = useStyles()
 
-  const [ref, inView] = useInView({ rootMargin: '200px' })
+  const [ref, inView] = useInView({ delay: 1000, rootMargin: '200px' })
 
   useEffect(() => {
     if (inView) refineNext()

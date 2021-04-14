@@ -5,6 +5,7 @@ import { useRouter } from 'next/router'
 import { db } from 'utils/firebase'
 import AuraComponent from 'components/AuraComponent'
 import Layout from 'components/Layout'
+import { CircularProgress } from '@material-ui/core'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -23,8 +24,7 @@ const AuraPage = () => {
   )
 
   if (loading || !aura) {
-    // return <CircularProgress className={classes.loader} color='secondary' />
-    return null
+    return <CircularProgress className={classes.loader} color='secondary' />
   }
 
   if (error) {

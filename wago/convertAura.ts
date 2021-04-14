@@ -225,23 +225,32 @@ const convertCategories = (newCategories: Aura.Category[] | undefined) => {
   return newCategories
 }
 
+interface ConvertedAura {
+  auraCommon: Aura.AuraCommon
+  extraFields: Omit<Aura.Aura, keyof Aura.AuraCommon>
+}
+
 export const convertErrors: string[] = []
-export const convertAura = (wago: WagoAura): Aura.Aura | null => {
+const convertAura = (wago: WagoAura): ConvertedAura | null => {
   try {
     return {
-      id: wago.slug,
-      type: convertType(wago.type),
-      dateCreated: wago.date.created,
-      dateModified: wago.date.modified,
-      code: convertCode(wago.code),
-      name: wago.name,
-      categories: convertCategories(wago.newCategories),
-      description: wago.description,
-      views: wago.viewCount,
-      gallery: mergeScreensVideos(wago.videos, wago.s3screens),
-      wago: {
-        url: wago.url,
-        username: wago.user.name || '',
+      auraCommon: {
+        id: wago.slug,
+        type: convertType(wago.type),
+        epochCreated: Date.parse(wago.date.created),
+        epochModified: Date.parse(wago.date.modified),
+        name: wago.name,
+        categories: convertCategories(wago.newCategories),
+        views: wago.viewCount,
+        gallery: mergeScreensVideos(wago.videos, wago.s3screens),
+        wago: {
+          url: wago.url,
+          username: wago.user.name || '',
+        },
+      },
+      extraFields: {
+        code: convertCode(wago.code),
+        description: wago.description,
       },
     }
   } catch (error) {
@@ -252,4 +261,10 @@ export const convertAura = (wago: WagoAura): Aura.Aura | null => {
 
     throw error
   }
+}
+
+export const convertAuras = (wagos: WagoAura[]) => {
+  return wagos
+    .map((wago) => convertAura(wago))
+    .filter(Boolean) as ConvertedAura[]
 }

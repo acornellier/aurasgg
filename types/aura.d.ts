@@ -18,15 +18,13 @@ declare namespace Aura {
     root: boolean
   }
 
-  export interface Aura {
+  export interface AuraCommon {
     id: string
     type: Type
-    dateCreated: string
-    dateModified: string
-    code: string
+    epochCreated: number
+    epochModified: number
     name: string
     categories: Category[]
-    description: { format: 'bbcode' | 'markdown'; text: string }
     views: number
     gallery: Media[]
     wago?: {
@@ -35,9 +33,12 @@ declare namespace Aura {
     }
   }
 
-  export interface SearchAura extends Aura {
-    epochCreated: number
-    epochModified: number
+  export interface Aura extends AuraCommon {
+    code: string
+    description: { format: 'bbcode' | 'markdown'; text: string }
+  }
+
+  export interface SearchAura extends AuraCommon {
     categoryNames: string[]
   }
 }

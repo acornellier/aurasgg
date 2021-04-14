@@ -18,6 +18,8 @@ const useStyles = makeStyles((theme: Theme) =>
     gallery: {
       display: 'flex',
       alignItems: 'center',
+      gap: theme.spacing(1),
+      overflowY: 'hidden',
     },
     galleryItem: {
       maxWidth: 'fit-content',
@@ -26,13 +28,15 @@ const useStyles = makeStyles((theme: Theme) =>
 )
 
 interface Props {
-  aura: Aura.Aura
+  aura: Aura.Aura | Aura.SearchAura
 }
 
 export const AuraComponent = ({ aura }: Props) => {
   const classes = useStyles()
 
   const description = useMemo(() => {
+    if (!('description' in aura)) return ''
+
     return XBBCode.process({
       text: aura.description.text,
       removeMisalignedTags: true,
@@ -45,7 +49,7 @@ export const AuraComponent = ({ aura }: Props) => {
     <Container>
       <div className={classes.title}>
         <Typography variant='h6'>{aura.name}</Typography>
-        <CopyCode code={aura.code} />
+        {'code' in aura && <CopyCode code={aura.code} />}
       </div>
       <div className={classes.gallery}>
         {aura.gallery.map((media) => (

@@ -1,7 +1,7 @@
 import redis from 'redis'
 import { promisify } from 'util'
 import { db } from '../utils/firebase'
-import { convertAura, convertErrors, WagoAura } from './convertAura'
+import { convertAuras, convertErrors, WagoAura } from './convertAura'
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const Typesense = require('typesense/lib/Typesense')
 
@@ -43,9 +43,9 @@ const main = async () => {
     JSON.parse(wago),
   )
 
-  const migrated: Aura.Aura[] = (
+  const migrated: Aura.AuraCommon[] = (
     (await hvalsAsync('auras_migrated')) || []
-  ).map((wago) => JSON.parse(wago))
+  ).map((auraCommon) => JSON.parse(auraCommon))
 
   const toUpload = wagos.filter(
     (wago) => !migrated.some((aura) => aura.id === wago.slug),
@@ -58,25 +58,25 @@ const main = async () => {
       aura.newCategories !== undefined,
   )
 
-  const converted = ready
-    .map((wago) => convertAura(wago))
-    .filter(Boolean) as Aura.Aura[]
+  const converted = convertAuras(ready)
 
   const batchSize = 500
   for (let i = 0; i < converted.length; i += batchSize) {
     console.log(`pushing auras ${i} to ${i + batchSize} of ${converted.length}`)
     const batch = converted.slice(i, i + batchSize)
+    const auraCommons = batch.map((item) => item.auraCommon)
 
     const dbBatch = db().batch()
     const dbCol = db().collection('auras')
-    batch.forEach((aura) => dbBatch.set(dbCol.doc(aura.id), aura))
+    batch.forEach((item) => {
+      const aura: Aura.Aura = { ...item.auraCommon, ...item.extraFields }
+      dbBatch.set(dbCol.doc(item.auraCommon.id), aura)
+    })
     await dbBatch.commit()
 
-    const searchAuras: Aura.SearchAura[] = batch.map((aura) => ({
-      ...aura,
-      epochCreated: Date.parse(aura.dateCreated),
-      epochModified: Date.parse(aura.dateModified),
-      categoryNames: aura.categories.map((category) => category.text),
+    const searchAuras: Aura.SearchAura[] = auraCommons.map((auraCommon) => ({
+      ...auraCommon,
+      categoryNames: auraCommon.categories.map((category) => category.text),
     }))
 
     const res = await typesenseClient
@@ -90,8 +90,12 @@ const main = async () => {
       throw new Error(`Failed to push to typesense`)
     }
 
-    for (const aura of batch) {
-      await hsetAsync(['auras_migrated', aura.id, JSON.stringify(aura)])
+    for (const auraCommon of auraCommons) {
+      await hsetAsync([
+        'auras_migrated',
+        auraCommon.id,
+        JSON.stringify(auraCommon),
+      ])
     }
   }
 

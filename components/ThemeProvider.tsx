@@ -34,7 +34,16 @@ const ThemeProvider = ({ children }: ThemeProviderProps) => {
   }, [palette, setPalette, setCookie])
 
   const theme = useMemo(() => {
-    return createMuiTheme({ palette: { type: palette } })
+    return createMuiTheme({
+      palette: { type: palette },
+      overrides: {
+        MuiDialog: {
+          container: {
+            alignItems: 'baseline',
+          },
+        },
+      },
+    })
   }, [palette])
 
   return (
