@@ -36,7 +36,7 @@
     "react-firebase-hooks": "^3.0.4",
     "react-instantsearch-dom": "^6.10.3",
     "react-intersection-observer": "^8.31.1",
-    "typesense": "^0.11.2",
+    "typesense": "^0.12.0",
     "typesense-instantsearch-adapter": "^1.1.1"
   },
   "devDependencies": {
