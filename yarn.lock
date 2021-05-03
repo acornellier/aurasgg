@@ -4333,10 +4333,10 @@ typesense@^0.11.1:
     axios "^0.21.1"
     loglevel "^1.7.1"
 
-typesense@^0.12.0:
-  version "0.12.0"
-  resolved "https://registry.yarnpkg.com/typesense/-/typesense-0.12.0.tgz#55b0dbbc59d55724b95b98d956c3941ec29ad690"
-  integrity sha512-ClCeumUnHu5NtxQR2GZk0wRgE4j90UhJt42/NvSU3+QvbHNfahSK43gjquIoPhLzBGCbOIYBGz/QKcyCByuwJQ==
+typesense@^0.12.1:
+  version "0.12.1"
+  resolved "https://registry.yarnpkg.com/typesense/-/typesense-0.12.1.tgz#a2f37e69f7513fbd76fbde3b489edfc0dc081b27"
+  integrity sha512-l8RH6tJHdJSiNOkXKmZFAphKoxTatScSXvuSINqkpAVKQ4N1n/YQnJDc93CG8VXZcYXzcMUJXAGHYF/GghGZXQ==
   dependencies:
     axios "^0.21.1"
     loglevel "^1.7.1"
