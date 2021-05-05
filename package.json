@@ -34,7 +34,7 @@
     "react-cookie": "^4.0.3",
     "react-dom": "^17.0.2",
     "react-firebase-hooks": "^3.0.4",
-    "react-instantsearch-dom": "^6.10.3",
+    "react-instantsearch-dom": "^6.11.0",
     "react-intersection-observer": "^8.31.1",
     "typesense": "^0.12.1",
     "typesense-instantsearch-adapter": "^1.1.1"
