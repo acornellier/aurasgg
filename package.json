@@ -45,7 +45,7 @@
     "@types/react-dom": "^17.0.7",
     "@types/react-instantsearch": "^6.10.0",
     "@types/redis": "^2.8.29",
-    "@typescript-eslint/eslint-plugin": "^4.26.1",
+    "@typescript-eslint/eslint-plugin": "^4.27.0",
     "@typescript-eslint/parser": "^4.27.0",
     "dotenv": "^8.5.1",
     "eslint": "^7.28.0",
