@@ -4266,14 +4266,6 @@ typesense-instantsearch-adapter@^1.2.1:
   dependencies:
     typesense "^0.13.0"
 
-typesense@^0.12.1:
-  version "0.12.1"
-  resolved "https://registry.yarnpkg.com/typesense/-/typesense-0.12.1.tgz#a2f37e69f7513fbd76fbde3b489edfc0dc081b27"
-  integrity sha512-l8RH6tJHdJSiNOkXKmZFAphKoxTatScSXvuSINqkpAVKQ4N1n/YQnJDc93CG8VXZcYXzcMUJXAGHYF/GghGZXQ==
-  dependencies:
-    axios "^0.21.1"
-    loglevel "^1.7.1"
-
 typesense@^0.13.0:
   version "0.13.0"
   resolved "https://registry.yarnpkg.com/typesense/-/typesense-0.13.0.tgz#fcf14895dc45d5d2eee163103a4fb0518099840a"
